@@ -1,4 +1,9 @@
 import { useQuery, gql } from "@apollo/client"
+import { Route, Switch } from "react-router-dom"
+import Layout from "./components/layout/layout"
+import DetailsPage from "./pages/details"
+import HomePage from "./pages/home"
+import LoginPage from "./pages/login"
 
 const Projects = gql`
   query Projects {
@@ -21,9 +26,17 @@ function App() {
   if (error) return <p>`Error :(`</p>
 
   return (
-    <>
-      <p>Test</p>
-    </>
+    <Layout>
+      <Route path="/">
+        <HomePage />
+      </Route>
+      <Route path="/login">
+        <LoginPage />
+      </Route>
+      <Route path="/">
+        <HomePage />
+      </Route>
+    </Layout>
   )
 }
 
