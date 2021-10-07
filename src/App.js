@@ -1,42 +1,25 @@
-import { useQuery, gql } from "@apollo/client"
-import { Route, Switch } from "react-router-dom"
-import Layout from "./components/layout/layout"
+import { BrowserRouter, Route, Switch } from "react-router-dom"
+import Navigation from "./components/UI/Navigation"
 import DetailsPage from "./pages/details"
 import HomePage from "./pages/home"
 import LoginPage from "./pages/login"
 
-const Projects = gql`
-  query Projects {
-    projects {
-      name
-      developer {
-        firstName
-        lastName
-      }
-      description
-      featuredImage {
-        url
-      }
-    }
-  }
-`
 function App() {
-  const { loading, error, data } = useQuery(Projects)
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>`Error :(`</p>
-
   return (
-    <Layout>
-      <Route path="/">
-        <HomePage />
-      </Route>
-      <Route path="/login">
-        <LoginPage />
-      </Route>
-      <Route path="/">
-        <HomePage />
-      </Route>
-    </Layout>
+    <>
+      <Navigation />
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/details">
+          <DetailsPage />
+        </Route>
+      </Switch>
+    </>
   )
 }
 

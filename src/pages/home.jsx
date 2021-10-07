@@ -1,5 +1,7 @@
+import ProjectGallery from "../components/ProjectGallery.jsx"
+
 const HomePage = () => {
-  return <h1>Home Page</h1>
+  return <ProjectGallery />
 }
 
 export default HomePage
