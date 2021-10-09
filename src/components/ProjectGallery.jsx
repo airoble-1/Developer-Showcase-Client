@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client"
-import { Container, Row, Col } from "react-bootstrap"
+import { Container, Row } from "react-bootstrap"
 import ProjectCard from "./ProjectCard"
 
 const PROJECTS = gql`
