@@ -31,12 +31,10 @@ const ProjectGallery = () => {
 
   return (
     <Container className="mt-4">
-      <Row xs={1} md={3}>
-        <Col>
-          {data.projects.map((project) => {
-            return <ProjectCard key={project.id} project={project} />
-          })}
-        </Col>
+      <Row xs={1} md={2} xl={3}>
+        {data.projects.map((project) => {
+          return <ProjectCard key={project.id} project={project} />
+        })}
       </Row>
     </Container>
   )
