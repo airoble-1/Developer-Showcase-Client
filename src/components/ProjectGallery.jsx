@@ -30,7 +30,7 @@ const ProjectGallery = () => {
   if (error) return <p>Error :(</p>
 
   return (
-    <Container className="mt-4">
+    <Container className="my-4">
       <Row xs={1} md={2} xl={3}>
         {data.projects.map((project) => {
           return <ProjectCard key={project.id} project={project} />

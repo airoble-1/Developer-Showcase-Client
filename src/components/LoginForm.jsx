@@ -1,3 +1,4 @@
+import { useHistory } from "react-router"
 import { useState } from "react"
 import { Form, Button, Col, Row, Container } from "react-bootstrap"
 import classes from "./LoginForm.module.css"
@@ -5,6 +6,7 @@ import classes from "./LoginForm.module.css"
 const LoginForm = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const history = useHistory()
 
   function validateEmail(email) {
     const re =
@@ -22,6 +24,9 @@ const LoginForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
+    if (!validateForm()) {
+      return
+    }
     alert("Form has been submitted =)")
     setEmail("")
     setPassword("")
@@ -38,9 +43,7 @@ const LoginForm = () => {
                 placeholder="Email"
                 value={email}
                 required
-                onChange={(e) => {
-                  setEmail(e.target.value)
-                }}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Form.Group>
             <Form.Group size="lg" controlId="password">
@@ -49,14 +52,19 @@ const LoginForm = () => {
                 type="password"
                 placeholder="Password"
                 value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value)
-                }}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </Form.Group>
-            <Button className="mt-2" type="submit" disabled={!validateForm()}>
+            <Button className="mt-2" type="submit">
               Login
+            </Button>
+            <Button
+              variant="secondary"
+              className="mt-2 mx-2"
+              onClick={() => history.goBack()}
+            >
+              Go Back
             </Button>
           </Form>
         </Col>
