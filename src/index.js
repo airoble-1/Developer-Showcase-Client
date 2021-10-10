@@ -6,11 +6,17 @@ import client from "./apollo/apolloClient"
 import "bootstrap/dist/css/bootstrap.min.css"
 import App from "./App"
 import "normalize.css"
+import UserProvider from "./store/UserContext"
+
 render(
-  <ApolloProvider client={client}>
-    <Router>
-      <App />
-    </Router>
-  </ApolloProvider>,
+  <React.StrictMode>
+    <ApolloProvider client={client}>
+      <UserProvider>
+        <Router>
+          <App />
+        </Router>
+      </UserProvider>
+    </ApolloProvider>
+  </React.StrictMode>,
   document.getElementById("root")
 )

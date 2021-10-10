@@ -1,12 +1,38 @@
+import { Redirect } from "react-router"
 import { useHistory } from "react-router"
-import { useState } from "react"
-import { Form, Button, Col, Row, Container } from "react-bootstrap"
+import { useState, useContext } from "react"
+import { UserContext } from "../store/UserContext"
+import { Form, Button, Col, Row, Container, Spinner } from "react-bootstrap"
+import { useMutation, gql } from "@apollo/client"
+
 import classes from "./LoginForm.module.css"
 
+const LOGIN_USER = gql`
+  mutation UserLogin($input: UsersPermissionsLoginInput!) {
+    login(input: $input) {
+      jwt
+      user {
+        username
+        id
+      }
+    }
+  }
+`
+
 const LoginForm = () => {
+  const { user, setUser } = useContext(UserContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const history = useHistory()
+  const [LoginMutation, { loading, error }] = useMutation(LOGIN_USER, {
+    onCompleted: (data) => {
+      const { login } = data
+      setUser({
+        token: login.jwt,
+        userId: login.user.id,
+      })
+    },
+  })
 
   function validateEmail(email) {
     const re =
@@ -27,9 +53,22 @@ const LoginForm = () => {
     if (!validateForm()) {
       return
     }
+    LoginMutation({
+      variables: {
+        input: {
+          identifier: email,
+          password: password,
+        },
+      },
+    })
+
     alert("Form has been submitted =)")
     setEmail("")
     setPassword("")
+
+    if (loading) return <Spinner animation="grow"></Spinner>
+    if (error) return <h1>Unable to Login</h1>
+    if (user) return <Redirect to="/" />
   }
   return (
     <Container>
