@@ -2,8 +2,9 @@ import { AiOutlineFire } from "react-icons/ai"
 import { Card, Button, Col } from "react-bootstrap"
 import "./../App.css"
 import classes from "./ProjectCard.module.css"
-
+import { useHistory } from "react-router"
 const ProjectCard = ({ project }) => {
+  const history = useHistory()
   return (
     <Col className="gy-3">
       <Card className={classes.box}>
@@ -25,7 +26,9 @@ const ProjectCard = ({ project }) => {
             {project.description.substring(0, 151)}
             {project.description.length >= 150 && `...`}
           </Card.Text>
-          <Button className="details">Details</Button>
+          <Button className="details" onClick={() => history.push("/details")}>
+            Details
+          </Button>
         </Card.Body>
       </Card>
     </Col>
