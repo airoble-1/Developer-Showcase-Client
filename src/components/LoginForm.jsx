@@ -62,7 +62,6 @@ const LoginForm = () => {
       },
     })
 
-    alert("Form has been submitted =)")
     setEmail("")
     setPassword("")
 

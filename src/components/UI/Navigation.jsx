@@ -2,10 +2,15 @@ import { Navbar, Container, Nav, Button } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 import { useContext } from "react"
 import { UserContext } from "../../store/UserContext"
-
+import client from "../../apollo/apolloClient"
+import classes from "./Navigation.module.css"
 const Navigation = () => {
-  const userContext = useContext(UserContext)
-  const { user } = userContext
+  const { user, setUser } = useContext(UserContext)
+  const handleLogout = () => {
+    localStorage.clear()
+    setUser(null)
+    client.resetStore()
+  }
   return (
     <>
       <Navbar bg="dark" variant="dark">
@@ -17,12 +22,28 @@ const Navigation = () => {
             <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/details">
+              <Nav.Link>Project Details</Nav.Link>
+            </LinkContainer>
             {!user && (
               <LinkContainer to="/login">
                 <Nav.Link>Login</Nav.Link>
               </LinkContainer>
             )}
           </Nav>
+          {user && (
+            <>
+              <span className={classes.greeting}>Hi Ahmed!</span>
+              <Button
+                className="mx-2"
+                variant="outline-secondary"
+                size="sm"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            </>
+          )}
         </Container>
       </Navbar>
     </>
