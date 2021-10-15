@@ -25,6 +25,12 @@ const LoginForm = () => {
   const [password, setPassword] = useState("")
   const history = useHistory()
   const [LoginMutation, { loading, error }] = useMutation(LOGIN_USER, {
+    /* could be simplified
+      onCompleted: ({login}) => {
+      then you don't need a line just for destructuring
+
+      not really familiar with apollo client, is it returning jwt in the response? It's usually returned as a header
+    */
     onCompleted: (data) => {
       const { login } = data
       setUser({
@@ -33,7 +39,7 @@ const LoginForm = () => {
       })
     },
   })
-
+  // a lot of these functions should be moved outside of LoginForm to be accessible so unit tests can be written for them.
   function validateEmail(email) {
     const re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -100,6 +106,7 @@ const LoginForm = () => {
             <Button
               variant="secondary"
               className="mt-2 mx-2"
+              // think you can just put history.goBack here(note no brackets)
               onClick={() => history.goBack()}
             >
               Go Back

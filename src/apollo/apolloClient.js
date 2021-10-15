@@ -2,6 +2,11 @@ import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client"
 import { setContext } from "@apollo/client/link/context"
 
 const httpLink = new HttpLink({
+  /*
+  REACT_APP_BACKEND_URL environment variable is not included in this project.
+  project should atleast include the backend url for dev environment
+  It should only be injected as a process environment variable if this app will be deployed to multiple servers, otherwise it should be an application environment variable
+  */
   uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
 })
 
