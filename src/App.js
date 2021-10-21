@@ -25,11 +25,14 @@ function App() {
           <HomePage />
         </Route>
         <Route path="/login">
-          <LoginPage />
+          {user ? <Redirect to="/" /> : <LoginPage />}
         </Route>
-        <PrivateRoute isAuth={user} path="/details">
+        <PrivateRoute isAuth={user} path="/details/:projectId">
           <DetailsPage />
         </PrivateRoute>
+        <Route path="*">
+          <h1>404 Error! this page does not exist</h1>
+        </Route>
       </Switch>
     </>
   )

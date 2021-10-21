@@ -63,8 +63,12 @@ const ProjectCard = ({ project }) => {
   }
   console.log(data)
 
-  const checkIfProjectLiked = function (likes, userId) {
-    return userId ? likes.find((like) => like.user.id === userId) : false
+  const checkIfProjectLiked = function (likes, user) {
+    return user ? likes.find((like) => like.user.id === user.userId) : false
+  }
+  const handleProjectDetails = () => {
+    if (!user) history.push("/login")
+    else history.push(`/details/${project.id}`)
   }
 
   if (loading) return <p>Loading...</p>
@@ -80,7 +84,7 @@ const ProjectCard = ({ project }) => {
             alt={`${project.developer.firstName} ${project.developer.lastName}`}
           ></img>
           <div className="d-flex flex-column align-items-center">
-            {checkIfProjectLiked(data.likes, user.userId) ? (
+            {checkIfProjectLiked(data.likes, user) ? (
               <AiFillFire color="red" size="2.5rem" onClick={Addlike} />
             ) : (
               <AiOutlineFire size="2.5rem" onClick={Addlike} />
@@ -94,7 +98,7 @@ const ProjectCard = ({ project }) => {
             {project.description.substring(0, 151)}
             {project.description.length >= 150 && `...`}
           </Card.Text>
-          <Button className="details" onClick={() => history.push("/details")}>
+          <Button className="details" onClick={handleProjectDetails}>
             Details
           </Button>
         </Card.Body>

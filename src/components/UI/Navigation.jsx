@@ -22,7 +22,7 @@ const Navigation = () => {
             <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/details">
+            <LinkContainer to="/details/:projectId">
               <Nav.Link>Project Details</Nav.Link>
             </LinkContainer>
             {!user && (
