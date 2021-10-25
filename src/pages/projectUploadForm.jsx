@@ -1,13 +1,17 @@
-import { useState } from "react"
 import { Form, Button, Container, Row, Col } from "react-bootstrap"
 import { useHistory } from "react-router"
 import useForm from "./../hooks/useForm"
-import { validate } from "./ProjectFormValidationRules"
 const ProjectUploadForm = () => {
   const history = useHistory()
-  const { values, handleChange, clearFields, handleValidation, errors } =
-    useForm(validate)
-
+  const {
+    handleChange,
+    clearFields,
+    handleUrlValidation,
+    errors,
+    setErrorMessages,
+    values,
+  } = useForm()
+  let errorMessages = setErrorMessages()
   return (
     <Container>
       <Form className="my-4 p-2 rounded shadow" onSubmit>
@@ -16,7 +20,7 @@ const ProjectUploadForm = () => {
           <Form.Control
             name="name"
             type="text"
-            value={values.name || ""}
+            value=""
             onChange={handleChange}
             placeholder="Enter name of project"
             required
@@ -57,13 +61,13 @@ const ProjectUploadForm = () => {
                 type="text"
                 value={values.github || ""}
                 onChange={handleChange}
-                onBlur={handleValidation}
+                onBlur={handleUrlValidation}
                 placeholder="Enter GitHub url"
                 require
                 isInvalid={errors.github}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.github}
+                {errorMessages.github}
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -75,14 +79,14 @@ const ProjectUploadForm = () => {
                 name="site"
                 type="text"
                 value={values.site || ""}
-                onBlur={handleValidation}
+                onBlur={handleUrlValidation}
                 onChange={handleChange}
                 placeholder="Enter live site url"
                 required
                 isInvalid={errors.site}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.site}
+                {errorMessages.site}
               </Form.Control.Feedback>
             </Form.Group>
           </Col>

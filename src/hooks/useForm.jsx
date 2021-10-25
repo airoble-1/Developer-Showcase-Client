@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const useForm = (validate) => {
+const useForm = () => {
   const [values, setValues] = useState({})
   const [errors, setErrors] = useState({})
 
@@ -15,17 +15,38 @@ const useForm = (validate) => {
     setValues({})
     setErrors({})
   }
+  const urlRegex =
+    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
 
-  const handleValidation = (event) => {
-    setErrors(validate(values))
+  const isUrlValid = (url, regex) => {
+    const valid = url.match(regex)
+    return valid
+  }
+
+  const handleUrlValidation = (event) => {
+    if (isUrlValid(event.target.value, urlRegex)) {
+      setErrors((errors) => ({ ...errors, [event.target.name]: false }))
+    } else {
+      setErrors((errors) => ({ ...errors, [event.target.name]: true }))
+    }
+  }
+
+  const setErrorMessages = () => {
+    let errorMessages = {}
+    if (!values.github) errorMessages.github = "GitHub url is required"
+    else errorMessages.github = "GitHub url is invalid"
+    if (!values.site) errorMessages.site = "Website url is required"
+    else errorMessages.site = "Project site url is invalid"
+    return errorMessages
   }
 
   return {
     values,
     handleChange,
     clearFields,
-    handleValidation,
+    handleUrlValidation,
     errors,
+    setErrorMessages,
   }
 }
 
