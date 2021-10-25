@@ -1,18 +1,23 @@
+import { useState } from "react"
 import { Form, Button, Container, Row, Col } from "react-bootstrap"
-
+import { useHistory } from "react-router"
+import useForm from "./../hooks/useForm"
+import { validate } from "./ProjectFormValidationRules"
 const ProjectUploadForm = () => {
-  const handleSubmit = () => {}
+  const history = useHistory()
+  const { values, handleChange, clearFields, handleValidation, errors } =
+    useForm(validate)
 
   return (
     <Container>
-      <Form className="my-4 p-2 rounded shadow" onSubmit={() => handleSubmit}>
+      <Form className="my-4 p-2 rounded shadow" onSubmit>
         <Form.Group className="mb-3" controlId="project-name">
           <Form.Label className="fw-bold">Name</Form.Label>
           <Form.Control
             name="name"
             type="text"
-            value=""
-            onChange=""
+            value={values.name || ""}
+            onChange={handleChange}
             placeholder="Enter name of project"
             required
           />
@@ -23,8 +28,8 @@ const ProjectUploadForm = () => {
           <Form.Control
             name="description"
             as="textarea"
-            value=""
-            onChange=""
+            value={values.description || ""}
+            onChange={handleChange}
             placeholder="Enter description of project"
             required
             rows="3"
@@ -35,10 +40,11 @@ const ProjectUploadForm = () => {
           <Form.Label className="fw-bold">Image</Form.Label>
           <Form.Control
             type="file"
-            required
             name="file"
-            onChange=""
+            value={values.file || ""}
+            onChange={handleChange}
             isInvalid=""
+            required
           />
         </Form.Group>
 
@@ -47,18 +53,17 @@ const ProjectUploadForm = () => {
             <Form.Group className="mb-3" controlId="project-gitHub">
               <Form.Label className="fw-bold">GitHub</Form.Label>
               <Form.Control
-                name="githubUrl"
+                name="github"
                 type="text"
-                value=""
-                onChange=""
+                value={values.github || ""}
+                onChange={handleChange}
+                onBlur={handleValidation}
                 placeholder="Enter GitHub url"
-                required
-                onBlur=""
-                isInvalid="true"
+                require
+                isInvalid={errors.github}
               />
               <Form.Control.Feedback type="invalid">
-                {" "}
-                Please provide a valid url
+                {errors.github}
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -67,17 +72,17 @@ const ProjectUploadForm = () => {
             <Form.Group className="mb-3" controlId="project-website">
               <Form.Label className="fw-bold">Live Site</Form.Label>
               <Form.Control
-                name="name"
+                name="site"
                 type="text"
-                value=""
-                onChange=""
+                value={values.site || ""}
+                onBlur={handleValidation}
+                onChange={handleChange}
                 placeholder="Enter live site url"
                 required
-                onBlur=""
-                isInvalid="true"
+                isInvalid={errors.site}
               />
               <Form.Control.Feedback type="invalid">
-                Please provide a valid url
+                {errors.site}
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -88,11 +93,15 @@ const ProjectUploadForm = () => {
             <Button className="me-2" variant="primary" type="submit">
               Upload Project
             </Button>
-            <Button variant="secondary" type="submit">
+            <Button variant="secondary" type="submit" onClick={clearFields}>
               Clear
             </Button>
           </div>
-          <Button variant="primary" type="submit">
+          <Button
+            onClick={() => history.goBack()}
+            variant="primary"
+            type="submit"
+          >
             Go Back
           </Button>
         </div>

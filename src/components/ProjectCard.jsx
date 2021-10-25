@@ -61,7 +61,6 @@ const ProjectCard = ({ project }) => {
       })
     }
   }
-  console.log(data)
 
   const checkIfProjectLiked = function (likes, user) {
     return user ? likes.find((like) => like.user.id === user.userId) : false
