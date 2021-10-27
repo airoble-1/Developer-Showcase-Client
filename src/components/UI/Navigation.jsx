@@ -27,6 +27,11 @@ const Navigation = () => {
                 <Nav.Link>Login</Nav.Link>
               </LinkContainer>
             )}
+            {user && (
+              <LinkContainer to="/upload">
+                <Nav.Link>Upload Project</Nav.Link>
+              </LinkContainer>
+            )}
           </Nav>
           {user && (
             <>
