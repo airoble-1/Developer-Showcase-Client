@@ -5,10 +5,12 @@ const useForm = () => {
   const [errors, setErrors] = useState({})
 
   const handleChange = (event) => {
-    event.preventDefault()
+    let { type, name, value } = event.target
+    if (type === "file") [value] = event.target.files
+
     setValues((values) => ({
       ...values,
-      [event.target.name]: event.target.value,
+      [name]: value,
     }))
   }
   const clearFields = () => {
