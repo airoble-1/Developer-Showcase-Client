@@ -6,6 +6,7 @@ const createProjectMutation = gql`
     $description: String!
     $github: String!
     $site: String!
+    $userId: ID!
   ) {
     createProject(
       input: {
@@ -14,6 +15,7 @@ const createProjectMutation = gql`
           description: $description
           github: $github
           site: $site
+          developer: $userId
         }
       }
     ) {

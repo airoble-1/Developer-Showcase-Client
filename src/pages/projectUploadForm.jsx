@@ -1,13 +1,16 @@
-import { useRef } from "react"
-import { useState } from "react"
+import { useRef, useContext, useState } from "react"
 import { useMutation } from "@apollo/client"
 import { Form, Button, Container, Row, Col } from "react-bootstrap"
 import { useHistory } from "react-router"
+import { UserContext } from "../store/UserContext"
+
 import useForm from "./../hooks/useForm"
 import createProjectMutation from "../apollo/mutations/createProject"
 import uploadFeatureImageMutation from "../apollo/mutations/uploadFeaturedImage"
 import PROJECTS from "../apollo/queries/projects"
 const ProjectUploadForm = () => {
+  const { user } = useContext(UserContext)
+  const { userId } = user
   const fileInput = useRef()
   const [createProject, { error: errorProject }] = useMutation(
     createProjectMutation
@@ -38,6 +41,7 @@ const ProjectUploadForm = () => {
         description,
         site,
         github,
+        userId,
       },
     })
 
@@ -52,7 +56,7 @@ const ProjectUploadForm = () => {
         fieldName: "featuredImage",
         fileName: fileInput.current.files[0],
       },
-      refetchQueries: [PROJECTS],
+      refetchQueries: [{ query: PROJECTS }],
     })
 
     if (errorFile)
