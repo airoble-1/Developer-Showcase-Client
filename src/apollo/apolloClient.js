@@ -1,10 +1,7 @@
-import { ApolloClient, InMemoryCache, HttpLink, concat } from "@apollo/client"
+import { ApolloClient, InMemoryCache } from "@apollo/client"
 import { createUploadLink } from "apollo-upload-client"
 import { setContext } from "@apollo/client/link/context"
 
-const httpLink = new HttpLink({
-  uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
-})
 const uploadLink = createUploadLink({
   uri: `${process.env.REACT_APP_BACKEND_URL}/graphql`,
 })
