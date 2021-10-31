@@ -28,7 +28,7 @@ const DetailsPage = () => {
         <div className={`${classes[`project-hero`]} overflow-hidden rounded`}>
           <Image
             style={{
-              objectFit: "contain",
+              objectFit: "cover",
               height: "100%",
               width: "100%",
             }}

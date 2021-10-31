@@ -67,34 +67,36 @@ const ProjectCard = ({ project }) => {
   const checkIfProjectLiked = function (likes, user) {
     return user ? likes.find((like) => like.user.id === user.userId) : false
   }
-
-  const [findLikeId, { called, data: likeId }] = useLazyQuery(findLike, {
-    variables: {
-      projectId: project.id,
-      userId: user.userId,
-    },
-  })
-
-  const [deleteLikeId, { data: deletedLikeInfo }] = useMutation(deleteLike)
+  const [deleteLikeId] = useMutation(deleteLike)
 
   const DeleteLike = () => {
-    findLikeId()
-    if (called && likeId.likes[0].id) {
-      deleteLikeId({
-        variables: {
-          input: {
-            where: {
-              id: likeId.likes[0].id,
+    findLikeId({
+      variables: {
+        projectId: project.id,
+        userId: user.userId,
+      },
+    })
+  }
+
+  const [findLikeId] = useLazyQuery(findLike, {
+    onCompleted: (data) => {
+      console.log(data)
+      if (data.likes[0].id) {
+        deleteLikeId({
+          variables: {
+            input: {
+              where: {
+                id: data.likes[0].id,
+              },
             },
           },
-        },
-        refetchQueries: [
-          { query: COUNT_LIKES, variables: { projectID: project.id } },
-        ],
-      })
-      console.log(deletedLikeInfo)
-    }
-  }
+          refetchQueries: [
+            { query: COUNT_LIKES, variables: { projectID: project.id } },
+          ],
+        })
+      }
+    },
+  })
 
   const handleProjectDetails = () => {
     if (!user) history.push("/login")
