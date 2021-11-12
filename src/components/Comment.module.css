@@ -2,6 +2,7 @@
   position: relative;
   border-bottom: 1px solid rgba(157, 90, 16, 0.3);
   padding-bottom: 0.4rem;
+  word-wrap: break-word;
 }
 
 .author {
@@ -19,7 +20,7 @@
 }
 .date {
   position: absolute;
-  top: 11px;
+  top: 3px;
   right: 3px;
   margin: 0;
   font-size: 0.85rem;

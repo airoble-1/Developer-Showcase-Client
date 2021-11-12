@@ -1,16 +1,24 @@
+import { useState } from "react"
 import classes from "./CommentForm.module.css"
 
-const CommentForm = () => {
+const CommentForm = ({ addComment }) => {
+  const [message, setMessage] = useState("")
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (message) addComment(message)
+    setMessage("")
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className={classes[`form-container`]}>
         <input
           className={classes[`input-comment`]}
           id="comment"
           type="text"
-          value=""
+          value={message}
           placeholder="Enter your comment..."
-          onChange
+          onChange={(e) => setMessage(e.target.value)}
         />
         <button className={classes.btn} type="submit">
           Send
