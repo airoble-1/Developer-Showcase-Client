@@ -1,0 +1,5 @@
+.comments {
+  height: 21rem;
+  overflow-y: scroll;
+  margin-bottom: 1rem;
+}

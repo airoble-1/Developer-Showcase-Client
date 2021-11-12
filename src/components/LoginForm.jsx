@@ -26,11 +26,13 @@ const LoginForm = () => {
   const history = useHistory()
   const [LoginMutation, { loading, error }] = useMutation(LOGIN_USER, {
     onCompleted: (data) => {
-      const { login } = data
-      setUser({
-        token: login.jwt,
-        userId: login.user.id,
-      })
+      if (data) {
+        const { login } = data
+        setUser({
+          token: login.jwt,
+          userId: login.user.id,
+        })
+      }
     },
   })
 
@@ -64,11 +66,10 @@ const LoginForm = () => {
 
     setEmail("")
     setPassword("")
-
-    if (loading) return <Spinner animation="grow"></Spinner>
-    if (error) return <h1>Unable to Login</h1>
-    if (user) return <Redirect to="/" />
   }
+  if (loading) return <Spinner animation="grow" />
+  if (error) return <h1>{error.message}</h1>
+  if (user) return <Redirect to="/" />
   return (
     <Container>
       <Row className="d-flex justify-content-center">
