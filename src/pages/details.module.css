@@ -1,0 +1,22 @@
+.container {
+  display: grid;
+  grid-template-columns: 32.3% 32.3% 32.3%;
+  grid-template-rows: 27rem;
+  row-gap: 1rem;
+  column-gap: 1rem;
+  grid-template-areas:
+    "hero hero user"
+    "project project comments";
+}
+.project-hero {
+  grid-area: hero;
+}
+.project-info {
+  grid-area: project;
+}
+.user-info {
+  grid-area: user;
+}
+.project-comments {
+  grid-area: comments;
+}

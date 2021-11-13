@@ -1,7 +1,8 @@
-import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client"
+import { ApolloClient, InMemoryCache } from "@apollo/client"
+import { createUploadLink } from "apollo-upload-client"
 import { setContext } from "@apollo/client/link/context"
 
-const httpLink = new HttpLink({
+const uploadLink = createUploadLink({
   /*
   REACT_APP_BACKEND_URL environment variable is not included in this project.
   project should atleast include the backend url for dev environment
@@ -27,7 +28,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(uploadLink),
   cache: new InMemoryCache(),
 })
 

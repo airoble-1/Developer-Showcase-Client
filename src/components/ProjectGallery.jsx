@@ -1,27 +1,7 @@
-import { gql, useQuery } from "@apollo/client"
+import { useQuery } from "@apollo/client"
 import { Container, Row } from "react-bootstrap"
 import ProjectCard from "./ProjectCard"
-
-const PROJECTS = gql`
-  query Projects {
-    projects {
-      id
-      featuredImage {
-        url
-      }
-      developer {
-        firstName
-        lastName
-        profileImage {
-          url
-        }
-      }
-      likesCount
-      name
-      description
-    }
-  }
-`
+import PROJECTS from "../apollo/queries/projects"
 
 const ProjectGallery = () => {
   const { loading, error, data } = useQuery(PROJECTS)

@@ -32,11 +32,13 @@ const LoginForm = () => {
       not really familiar with apollo client, is it returning jwt in the response? It's usually returned as a header
     */
     onCompleted: (data) => {
-      const { login } = data
-      setUser({
-        token: login.jwt,
-        userId: login.user.id,
-      })
+      if (data) {
+        const { login } = data
+        setUser({
+          token: login.jwt,
+          userId: login.user.id,
+        })
+      }
     },
   })
   // a lot of these functions should be moved outside of LoginForm to be accessible so unit tests can be written for them.
@@ -70,11 +72,10 @@ const LoginForm = () => {
 
     setEmail("")
     setPassword("")
-
-    if (loading) return <Spinner animation="grow"></Spinner>
-    if (error) return <h1>Unable to Login</h1>
-    if (user) return <Redirect to="/" />
   }
+  if (loading) return <Spinner animation="grow" />
+  if (error) return <h1>{error.message}</h1>
+  if (user) return <Redirect to="/" />
   return (
     <Container>
       <Row className="d-flex justify-content-center">

@@ -22,12 +22,14 @@ const Navigation = () => {
             <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/details">
-              <Nav.Link>Project Details</Nav.Link>
-            </LinkContainer>
             {!user && (
               <LinkContainer to="/login">
                 <Nav.Link>Login</Nav.Link>
+              </LinkContainer>
+            )}
+            {user && (
+              <LinkContainer to="/upload">
+                <Nav.Link>Upload Project</Nav.Link>
               </LinkContainer>
             )}
           </Nav>
