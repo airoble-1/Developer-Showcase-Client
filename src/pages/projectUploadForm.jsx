@@ -48,7 +48,6 @@ const ProjectUploadForm = () => {
     if (errorProject)
       return <h1>{errorProject.message} Unable to create new project</h1>
 
-    console.log(fileInput.current.files[0])
     const uploadImageResponse = await uploadFeaturedImage({
       variables: {
         collectionName: "project",
@@ -139,7 +138,7 @@ const ProjectUploadForm = () => {
                   onBlur={handleUrlValidation}
                   onChange={handleChange}
                   placeholder="Enter live site url"
-                  //  required
+                  required
                   isInvalid={errors.site}
                 />
                 <Form.Control.Feedback type="invalid">

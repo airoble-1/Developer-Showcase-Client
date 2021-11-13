@@ -6,10 +6,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const loggedInUser = localStorage.getItem("user")
     if (loggedInUser) {
-      // just return instead of creating a constant
-      // a linter could help you find unnecessary code.
-      const foundUser = JSON.parse(loggedInUser)
-      return foundUser
+      return JSON.parse(loggedInUser)
     }
   })
 

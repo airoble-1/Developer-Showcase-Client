@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client"
 import { useParams } from "react-router-dom"
 import classes from "./details.module.css"
 import { projectDetails } from "../apollo/queries/projectDetails"
-import CommentsCard from "../components/CommentsCard"
+import CommentsCard from "../components/commentBox/CommentsCard"
 const DetailsPage = () => {
   const { projectId } = useParams()
   const { error, data, loading } = useQuery(projectDetails, {

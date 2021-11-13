@@ -4,9 +4,9 @@ import { Spinner } from "react-bootstrap"
 import { useContext } from "react"
 import Comments from "./Comments"
 import CommentForm from "./CommentForm"
-import { UserContext } from "../store/UserContext"
-import { findComments } from "./../apollo/queries/findCommentsByProject"
-import { CREATE_COMMENT } from "./../apollo/mutations/createComment"
+import { UserContext } from "../../store/UserContext"
+import { findComments } from "../../apollo/queries/findCommentsByProject"
+import { CREATE_COMMENT } from "../../apollo/mutations/createComment"
 
 const CommentsCard = ({ className }) => {
   const { user } = useContext(UserContext)

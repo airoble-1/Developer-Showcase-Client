@@ -5,8 +5,6 @@ import { UserContext } from "../store/UserContext"
 import { Form, Button, Col, Row, Container, Spinner } from "react-bootstrap"
 import { useMutation, gql } from "@apollo/client"
 
-import classes from "./LoginForm.module.css"
-
 const LOGIN_USER = gql`
   mutation UserLogin($input: UsersPermissionsLoginInput!) {
     login(input: $input) {
@@ -25,20 +23,11 @@ const LoginForm = () => {
   const [password, setPassword] = useState("")
   const history = useHistory()
   const [LoginMutation, { loading, error }] = useMutation(LOGIN_USER, {
-    /* could be simplified
-      onCompleted: ({login}) => {
-      then you don't need a line just for destructuring
-
-      not really familiar with apollo client, is it returning jwt in the response? It's usually returned as a header
-    */
-    onCompleted: (data) => {
-      if (data) {
-        const { login } = data
-        setUser({
-          token: login.jwt,
-          userId: login.user.id,
-        })
-      }
+    onCompleted: ({ login }) => {
+      setUser({
+        token: login.jwt,
+        userId: login.user.id,
+      })
     },
   })
   // a lot of these functions should be moved outside of LoginForm to be accessible so unit tests can be written for them.
@@ -80,7 +69,7 @@ const LoginForm = () => {
     <Container>
       <Row className="d-flex justify-content-center">
         <Col sm={12} md={6} xl={4}>
-          <Form className={classes.login} onSubmit={submitHandler}>
+          <Form onSubmit={submitHandler}>
             <Form.Group size="lg" controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -107,7 +96,6 @@ const LoginForm = () => {
             <Button
               variant="secondary"
               className="mt-2 mx-2"
-              // think you can just put history.goBack here(note no brackets)
               onClick={() => history.goBack()}
             >
               Go Back

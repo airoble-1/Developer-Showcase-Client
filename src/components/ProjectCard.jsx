@@ -6,30 +6,10 @@ import classes from "./ProjectCard.module.css"
 import { useHistory } from "react-router"
 import { useContext } from "react"
 import { UserContext } from "../store/UserContext"
+import COUNT_LIKES from "../apollo/queries/likesPerProject"
+import { CREATE_LIKE } from "../apollo/mutations/createLike"
 import { findLike } from "../apollo/queries/findLike"
 import { deleteLike } from "../apollo/mutations/deleteLike"
-
-const COUNT_LIKES = gql`
-  query likesPerProject($projectID: ID!) {
-    likes(where: { project: { id: $projectID } }) {
-      id
-      user {
-        id
-        firstName
-        lastName
-      }
-    }
-  }
-`
-const CREATE_LIKE = gql`
-  mutation AddOneLike($input: createLikeInput!) {
-    createLike(input: $input) {
-      like {
-        id
-      }
-    }
-  }
-`
 
 const ProjectCard = ({ project }) => {
   const history = useHistory()
