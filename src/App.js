@@ -6,6 +6,7 @@ import LoginPage from "./pages/login"
 import ProjectUploadForm from "./pages/projectUploadForm"
 import { UserContext } from "./store/UserContext"
 import { useContext } from "react"
+import ForgotPasswordPage from "./pages/forgotPassword"
 const PrivateRoute = ({ isAuth, children, ...rest }) => {
   return (
     <Route
@@ -34,6 +35,9 @@ function App() {
         <PrivateRoute isAuth={user} path="/upload">
           <ProjectUploadForm />
         </PrivateRoute>
+        <Route path="/forgot-password">
+          <ForgotPasswordPage />
+        </Route>
         <Route path="*">
           <h1>404 Error! this page does not exist</h1>
         </Route>
