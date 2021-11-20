@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [formError, setFormError] = useState("")
 
   const { code } = useParams()
-  console.log(code)
+
   const [resetPasswordFnc, { data, loading, error }] = useMutation(
     RESET_PASSWORD_MUTATTION,
     {
