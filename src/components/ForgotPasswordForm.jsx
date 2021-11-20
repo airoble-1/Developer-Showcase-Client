@@ -56,8 +56,11 @@ const ForgotPasswordForm = () => {
                 Please enter a valid email
               </Form.Control.Feedback>
             </Form.Group>
-            <div class="d-flex justify-content-center">
-              <Button className="mt-2 btn-success rounded-pill" type="submit">
+            <div className="d-flex justify-content-center">
+              <Button
+                className="mt-2 btn-success rounded-pill w-50"
+                type="submit"
+              >
                 Continue
               </Button>
             </div>

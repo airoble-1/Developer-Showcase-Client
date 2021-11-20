@@ -13,12 +13,12 @@ const Navigation = () => {
   }
   return (
     <>
-      <Navbar bg="dark" variant="dark">
+      <Navbar className={classes.navbar}>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>DevHunter</Navbar.Brand>
           </LinkContainer>
-          <Nav className="me-auto">
+          <Nav className={`me-auto`}>
             <LinkContainer to="/">
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
