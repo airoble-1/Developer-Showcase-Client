@@ -1,5 +1,5 @@
-import { Redirect } from "react-router"
-import { useHistory } from "react-router"
+import { Redirect, useHistory } from "react-router"
+import { Link } from "react-router-dom"
 import { useState, useContext } from "react"
 import { UserContext } from "../store/UserContext"
 import { Form, Button, Col, Row, Container, Spinner } from "react-bootstrap"
@@ -90,16 +90,23 @@ const LoginForm = () => {
                 required
               />
             </Form.Group>
-            <Button className="mt-2" type="submit">
+            <Button className="mt-2 btn-success" type="submit">
               Login
             </Button>
             <Button
-              variant="secondary"
+              variant="info"
               className="mt-2 mx-2"
               onClick={() => history.goBack()}
             >
               Go Back
             </Button>
+
+            <Link
+              className="text-secondary d-inline-block mx-3"
+              to="/forgot-password"
+            >
+              Forgot Password?
+            </Link>
           </Form>
         </Col>
       </Row>

@@ -1,4 +1,4 @@
-import { useMutation, gql, useQuery, useLazyQuery } from "@apollo/client"
+import { useMutation, useQuery, useLazyQuery } from "@apollo/client"
 import { AiOutlineFire, AiFillFire } from "react-icons/ai"
 import { Card, Button, Col } from "react-bootstrap"
 import "./../App.css"
@@ -60,7 +60,6 @@ const ProjectCard = ({ project }) => {
 
   const [findLikeId] = useLazyQuery(findLike, {
     onCompleted: (data) => {
-      console.log(data)
       if (data.likes[0].id) {
         deleteLikeId({
           variables: {

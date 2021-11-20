@@ -60,7 +60,6 @@ const ProjectUploadForm = () => {
 
     if (errorFile)
       return <h1>{errorFile.message} Unable to upload image to project</h1>
-    console.log(uploadImageResponse)
     const { data } = uploadImageResponse
     if (data) setIsLoading(false)
     history.push("/")
