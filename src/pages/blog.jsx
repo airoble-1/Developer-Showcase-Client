@@ -1,6 +1,6 @@
 import React from "react"
 
-import { TwoColumnGrid } from "../components/TwoColumnGrid"
+import TwoColumnGrid from "../components/TwoColumnGrid"
 import { Route } from "react-router-dom"
 import { useParams } from "react-router"
 import BlogList from "../components/BlogList"

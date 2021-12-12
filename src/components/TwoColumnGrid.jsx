@@ -1,6 +1,6 @@
 import React from "react"
 import styles from "./TwoColumnGrid.module.css"
-export function TwoColumnGrid({ children }) {
+function TwoColumnGrid({ children }) {
   const [left, right] = children
   return (
     <div className={styles.container}>
@@ -9,3 +9,4 @@ export function TwoColumnGrid({ children }) {
     </div>
   )
 }
+export default TwoColumnGrid
