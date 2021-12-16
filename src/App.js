@@ -1,4 +1,4 @@
-import { Route, Switch, Redirect } from "react-router-dom"
+import { Route, Routes, Navigate } from "react-router-dom"
 import Navigation from "./components/UI/Navigation"
 import DetailsPage from "./pages/details"
 import HomePage from "./pages/home"
@@ -10,13 +10,8 @@ import ForgotPasswordPage from "./pages/forgotPassword"
 import ResetPasswordPage from "./pages/resetPassword"
 import BlogPage from "./pages/blog"
 
-const PrivateRoute = ({ isAuth, children, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={() => (isAuth ? children : <Redirect to="/login" />)}
-    ></Route>
-  )
+function PrivateRoute({ isAuth, children }) {
+  return isAuth ? children : <Navigate to="/login" />
 }
 
 function App() {
@@ -25,33 +20,37 @@ function App() {
   return (
     <>
       <Navigation />
-      <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route path="/login">
-          {user ? <Redirect to="/" /> : <LoginPage />}
-        </Route>
-        <PrivateRoute isAuth={user} path="/details/:projectId">
-          <DetailsPage />
-        </PrivateRoute>
-        <PrivateRoute isAuth={user} path="/upload">
-          <ProjectUploadForm />
-        </PrivateRoute>
-        <Route path="/forgot-password">
-          <ForgotPasswordPage />
-        </Route>
-        <Route path="/reset-password/:code">
-          <ResetPasswordPage />
-        </Route>
-        <Route path="/blog">
-          <BlogPage />
-        </Route>
-
-        <Route path="*">
-          <h1>404 Error! this page does not exist</h1>
-        </Route>
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/" /> : <LoginPage />}
+        />
+        <Route
+          path="/details/:projectId"
+          element={
+            <PrivateRoute isAuth={user}>
+              <DetailsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/upload"
+          element={
+            <PrivateRoute isAuth={user}>
+              <ProjectUploadForm />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password/:code" element={<ResetPasswordPage />} />
+        
+        <Route
+          path="*"
+          element={<h1>404 Error! this page does not exist</h1>}
+        />
+      </Routes>
     </>
   )
 }

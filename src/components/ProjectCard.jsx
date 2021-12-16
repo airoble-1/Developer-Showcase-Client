@@ -3,7 +3,7 @@ import { AiOutlineFire, AiFillFire } from "react-icons/ai"
 import { Card, Button, Col } from "react-bootstrap"
 import "./../App.css"
 import classes from "./ProjectCard.module.css"
-import { useHistory } from "react-router"
+import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { UserContext } from "../store/UserContext"
 import COUNT_LIKES from "../apollo/queries/likesPerProject"
@@ -12,7 +12,7 @@ import { findLike } from "../apollo/queries/findLike"
 import { deleteLike } from "../apollo/mutations/deleteLike"
 
 const ProjectCard = ({ project }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const { user } = useContext(UserContext)
 
   // Initial likes count
@@ -29,7 +29,7 @@ const ProjectCard = ({ project }) => {
 
   // function handles like clicks
   const Addlike = () => {
-    if (!user) history.push("/login")
+    if (!user) navigate("/login")
     else {
       CreateLikeMutation({
         variables: {
@@ -78,8 +78,8 @@ const ProjectCard = ({ project }) => {
   })
 
   const handleProjectDetails = () => {
-    if (!user) history.push("/login")
-    else history.push(`/details/${project.id}`)
+    if (!user) navigate("/login")
+    else navigate(`/details/${project.id}`)
   }
 
   if (loading) return <p>Loading...</p>
