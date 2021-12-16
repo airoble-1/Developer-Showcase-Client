@@ -42,10 +42,10 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/*" element={<BlogPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password/:code" element={<ResetPasswordPage />} />
-        
+
         <Route
           path="*"
           element={<h1>404 Error! this page does not exist</h1>}

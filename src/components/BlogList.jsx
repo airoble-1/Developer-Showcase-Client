@@ -6,7 +6,7 @@ import { Spinner } from "react-bootstrap"
 export default function BlogList() {
   const { data, loading, error } = useQuery(GET_POSTS)
   if (loading) return <Spinner />
-  if (error) return <h4>Oops something went wrong!</h4>
+  if (error) return <h4>{error.message}</h4>
   return (
     <div>
       <h2>All Posts</h2>
