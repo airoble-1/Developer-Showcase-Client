@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Form, Button, Col, Row, Container, Spinner } from "react-bootstrap"
 import { useMutation } from "@apollo/client"
-import { Redirect, useParams } from "react-router"
+import { Navigate, useParams } from "react-router"
 import { RESET_PASSWORD_MUTATTION } from "../apollo/mutations/resetPassword"
 
 const LoginForm = () => {
@@ -42,7 +42,7 @@ const LoginForm = () => {
 
   if (error) return <h1>Oops something went wrong!</h1>
   if (loading) return <Spinner animation="grow" />
-  if (data) return <Redirect to="/login" />
+  if (data) return <Navigate to="/login" />
 
   return (
     <Container>

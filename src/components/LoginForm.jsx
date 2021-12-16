@@ -1,5 +1,4 @@
-import { Redirect, useHistory } from "react-router"
-import { Link } from "react-router-dom"
+import { useNavigate, Route, Link } from "react-router-dom"
 import { useState, useContext } from "react"
 import { UserContext } from "../store/UserContext"
 import { Form, Button, Col, Row, Container, Spinner } from "react-bootstrap"
@@ -21,7 +20,7 @@ const LoginForm = () => {
   const { user, setUser } = useContext(UserContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const history = useHistory()
+  const navigate = useNavigate()
   const [LoginMutation, { loading, error }] = useMutation(LOGIN_USER, {
     onCompleted: ({ login }) => {
       setUser({
@@ -64,7 +63,7 @@ const LoginForm = () => {
   }
   if (loading) return <Spinner animation="grow" />
   if (error) return <h1>{error.message}</h1>
-  if (user) return <Redirect to="/" />
+  if (user) return <Route to="/" />
   return (
     <Container>
       <Row className="d-flex justify-content-center">
@@ -96,7 +95,7 @@ const LoginForm = () => {
             <Button
               variant="info"
               className="mt-2 mx-2"
-              onClick={() => history.goBack()}
+              onClick={() => navigate(-1)}
             >
               Go Back
             </Button>
