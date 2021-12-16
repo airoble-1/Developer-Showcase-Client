@@ -8,6 +8,8 @@ import { UserContext } from "./store/UserContext"
 import { useContext } from "react"
 import ForgotPasswordPage from "./pages/forgotPassword"
 import ResetPasswordPage from "./pages/resetPassword"
+import BlogPage from "./pages/blog"
+
 function PrivateRoute({ isAuth, children }) {
   return isAuth ? children : <Navigate to="/login" />
 }
@@ -40,8 +42,10 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/blog" element={<BlogPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password/:code" element={<ResetPasswordPage />} />
+        
         <Route
           path="*"
           element={<h1>404 Error! this page does not exist</h1>}

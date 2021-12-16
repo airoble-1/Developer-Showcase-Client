@@ -92,7 +92,11 @@ const ProjectCard = ({ project }) => {
           variant="top"
           src={project.featuredImage.url}
         />
-        <div className="mt-2 px-4 d-flex justify-content-between align-items-center">
+        <div
+          className={`${
+            classes[`img-container`]
+          } mt-3 px-4 d-flex justify-content-between align-items-center`}
+        >
           <img
             className={classes.profile}
             src={project.developer.profileImage.url}

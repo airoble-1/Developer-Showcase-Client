@@ -15,9 +15,12 @@
 .details {
   color: #0288d1;
 }
+.img-container {
+}
 .project-image {
   height: 12rem;
   object-fit: cover;
+  object-position: 0px 0px;
 }
 .project-description {
   height: 5.5rem;
