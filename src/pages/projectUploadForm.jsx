@@ -1,7 +1,7 @@
 import { useRef, useContext, useState } from "react"
 import { useMutation } from "@apollo/client"
 import { Form, Button, Container, Row, Col } from "react-bootstrap"
-import { useHistory } from "react-router"
+import { useNavigate } from "react-router-dom"
 import { UserContext } from "../store/UserContext"
 
 import useForm from "./../hooks/useForm"
@@ -19,7 +19,7 @@ const ProjectUploadForm = () => {
     uploadFeatureImageMutation
   )
   const [isLoading, setIsLoading] = useState(false)
-  const history = useHistory()
+  const navigate = useNavigate()
   const {
     handleChange,
     clearFields,
@@ -62,7 +62,7 @@ const ProjectUploadForm = () => {
       return <h1>{errorFile.message} Unable to upload image to project</h1>
     const { data } = uploadImageResponse
     if (data) setIsLoading(false)
-    history.push("/")
+    navigate("/")
   }
 
   let errorMessages = setErrorMessages()
@@ -157,7 +157,7 @@ const ProjectUploadForm = () => {
               </Button>
             </div>
             <Button
-              onClick={() => history.goBack()}
+              onClick={() => navigate(-1)}
               variant="primary"
               type="submit"
             >
