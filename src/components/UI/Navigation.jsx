@@ -13,42 +13,45 @@ const Navigation = () => {
   }
   return (
     <>
-      <Navbar className={classes.navbar}>
+      <Navbar collapseOnSelect expand="lg" className={classes.navbar}>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>DevHunter</Navbar.Brand>
           </LinkContainer>
-          <Nav className={`me-auto`}>
-            <LinkContainer to="/">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/blog">
-              <Nav.Link>Blog</Nav.Link>
-            </LinkContainer>
-            {!user && (
-              <LinkContainer to="/login">
-                <Nav.Link>Login</Nav.Link>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className={`me-auto`}>
+              <LinkContainer to="/">
+                <Nav.Link>Home</Nav.Link>
               </LinkContainer>
-            )}
+              <LinkContainer to="/blog">
+                <Nav.Link>Blog</Nav.Link>
+              </LinkContainer>
+              {!user && (
+                <LinkContainer to="/login">
+                  <Nav.Link>Login</Nav.Link>
+                </LinkContainer>
+              )}
+              {user && (
+                <LinkContainer to="/upload">
+                  <Nav.Link>Upload Project</Nav.Link>
+                </LinkContainer>
+              )}
+            </Nav>
             {user && (
-              <LinkContainer to="/upload">
-                <Nav.Link>Upload Project</Nav.Link>
-              </LinkContainer>
+              <>
+                <span className={classes.greeting}>Hi Ahmed!</span>
+                <Button
+                  className="mx-2"
+                  variant="outline-secondary"
+                  size="sm"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </>
             )}
-          </Nav>
-          {user && (
-            <>
-              <span className={classes.greeting}>Hi Ahmed!</span>
-              <Button
-                className="mx-2"
-                variant="outline-secondary"
-                size="sm"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
-            </>
-          )}
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     </>
