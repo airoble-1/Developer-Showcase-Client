@@ -9,14 +9,15 @@ import { useContext } from "react"
 import ForgotPasswordPage from "./pages/forgotPassword"
 import ResetPasswordPage from "./pages/resetPassword"
 import BlogPage from "./pages/blog"
-
+import useTimeout from "./hooks/useTimeout"
 function PrivateRoute({ isAuth, children }) {
   return isAuth ? children : <Navigate to="/login" />
 }
 
 function App() {
   const { user } = useContext(UserContext)
-
+  const { isTimeout } = useTimeout(10)
+  isTimeout && console.log("Logged of after 10 sec")
   return (
     <>
       <Navigation />
