@@ -9,14 +9,15 @@ import client from "./../apollo/apolloClient"
 
 const IdleTimer = (timeout, setIsTimeout, user, setUser) => {
   // if user is not logged exit
+
+  setIsTimeout(false)
   if (!user) return
 
-  // if
+  // check previous expired time on app
   const expiredTime = parseInt(localStorage.getItem("_expiredTime"), 10)
   if (expiredTime > 0 && expiredTime < Date.now()) {
     setIsTimeout(true)
     cleanUp()
-    return
   }
 
   let interval
@@ -48,6 +49,7 @@ const IdleTimer = (timeout, setIsTimeout, user, setUser) => {
   }
   // clean up after time expires
   function cleanUp() {
+    setIsTimeout(false)
     setUser(null)
     client.clearStore()
     localStorage.clear()

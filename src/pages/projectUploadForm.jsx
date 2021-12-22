@@ -21,7 +21,7 @@ const ProjectUploadForm = () => {
   const [uploadFeaturedImage, { error: errorFile }] = useMutation(
     uploadFeatureImageMutation
   )
-  const [isLoading, setIsLoading] = useState(false)
+  const [isUploading, setisUploading] = useState(false)
   const navigate = useNavigate()
   const {
     handleChange,
@@ -37,7 +37,7 @@ const ProjectUploadForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!values.file || errors.github || errors.site) return
-    setIsLoading(true)
+    setisUploading(true)
     const createProjectResponse = await createProject({
       variables: {
         name,
@@ -64,7 +64,7 @@ const ProjectUploadForm = () => {
     if (errorFile)
       return <h1>{errorFile.message} Unable to upload image to project</h1>
     const { data } = uploadImageResponse
-    if (data) setIsLoading(false)
+    if (data) setisUploading(false)
     navigate("/")
   }
   let errorMessages = setErrorMessages()
@@ -109,7 +109,7 @@ const ProjectUploadForm = () => {
       <TwoColumnGrid>
         <h1>Column 2</h1>
         <Form className="my-4 p-2 rounded shadow" onSubmit={handleSubmit}>
-          <fieldset disabled={isLoading}>
+          <fieldset disabled={isUploading}>
             <Form.Group className="mb-3" controlId="project-name">
               <Form.Label className="fw-bold">Name</Form.Label>
               <Form.Control
@@ -195,13 +195,13 @@ const ProjectUploadForm = () => {
                   Clear
                 </Button>
               </div>
-               <Button
-              onClick={() => navigate(-1)}
-              variant="primary"
-              type="submit"
-            >
-              Go Back
-            </Button>
+              <Button
+                onClick={() => navigate(-1)}
+                variant="primary"
+                type="button"
+              >
+                Go Back
+              </Button>
             </div>
           </fieldset>
         </Form>
