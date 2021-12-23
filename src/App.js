@@ -16,8 +16,8 @@ function PrivateRoute({ isAuth, children }) {
 
 function App() {
   const { user } = useContext(UserContext)
-  const { isTimeout } = useTimeout(10)
-  isTimeout && console.log("Logged of after 10 sec")
+  // const { isTimeout } = useTimeout(10)
+  // isTimeout && console.log("Logged of after 10 sec")
   return (
     <>
       <Navigation />

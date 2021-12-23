@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-const useForm = () => {
-  const [values, setValues] = useState({})
-  const [errors, setErrors] = useState({})
+const useForm = (initial = {}) => {
+  const [values, setValues] = useState(initial)
+  const [errors, setErrors] = useState(initial)
 
   const handleChange = (event) => {
     let { type, name, value } = event.target

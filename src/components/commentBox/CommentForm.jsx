@@ -5,8 +5,10 @@ const CommentForm = ({ addComment }) => {
   const [message, setMessage] = useState("")
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (message) addComment(message)
-    setMessage("")
+    if (message) {
+      addComment(message)
+      setMessage("")
+    }
   }
 
   return (

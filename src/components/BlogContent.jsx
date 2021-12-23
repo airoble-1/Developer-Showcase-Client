@@ -31,7 +31,7 @@ export default function BlogContent() {
       </span>
       <span> By: {`${author.firstName} ${author.lastName}`} </span>
 
-      <h1>{title}</h1>
+      <h1 className={classes.title}>{title}</h1>
       <ReactMarkdown>{content}</ReactMarkdown>
     </Container>
   )

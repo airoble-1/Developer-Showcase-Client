@@ -1,0 +1,6 @@
+.box {
+  padding: 1rem;
+  max-width: 250px;
+  box-shadow: 2px 2px 7px -1px rgba(0, 0, 0, 0.2);
+  border-radius: 0.4rem;
+}

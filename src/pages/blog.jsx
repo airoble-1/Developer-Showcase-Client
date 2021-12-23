@@ -4,10 +4,10 @@ import TwoColumnGrid from "../components/TwoColumnGrid"
 import { Route } from "react-router-dom"
 import BlogList from "../components/BlogList"
 import BlogContent from "../components/BlogContent"
+import { Container } from "react-bootstrap"
 export default function BlogPage() {
   return (
-    <div>
-      Blog
+    <Container>
       <TwoColumnGrid>
         <BlogList />
         <Routes>
@@ -15,6 +15,6 @@ export default function BlogPage() {
         </Routes>
         <Outlet />
       </TwoColumnGrid>
-    </div>
+    </Container>
   )
 }

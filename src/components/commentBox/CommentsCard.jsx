@@ -1,4 +1,3 @@
-import { useParams } from "react-router"
 import { useQuery, useMutation } from "@apollo/client"
 import { Spinner } from "react-bootstrap"
 import { useContext } from "react"
@@ -8,9 +7,9 @@ import { UserContext } from "../../store/UserContext"
 import { findComments } from "../../apollo/queries/findCommentsByProject"
 import { CREATE_COMMENT } from "../../apollo/mutations/createComment"
 
-const CommentsCard = ({ className }) => {
+const CommentsCard = ({ className, projectId }) => {
   const { user } = useContext(UserContext)
-  const { projectId } = useParams()
+
   const { data, loading, error } = useQuery(findComments, {
     variables: {
       projectId,
@@ -21,7 +20,7 @@ const CommentsCard = ({ className }) => {
     { error: commentError, loading: loadingNewComment },
   ] = useMutation(CREATE_COMMENT)
 
-  const sendComment = (message) => {
+  const sendComment = async (message) => {
     createCommentMutation({
       variables: {
         input: {
@@ -33,10 +32,10 @@ const CommentsCard = ({ className }) => {
         },
       },
       refetchQueries: [
-        { query: findComments },
         {
+          query: findComments,
           variables: {
-            projectId,
+            id: projectId,
           },
         },
       ],

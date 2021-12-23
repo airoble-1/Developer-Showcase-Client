@@ -2,3 +2,7 @@
   object-fit: contain;
   width: 50%;
 }
+
+.title {
+  color: rgb(0, 0, 102);
+}

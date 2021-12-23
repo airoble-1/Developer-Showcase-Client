@@ -105,6 +105,7 @@ const DetailsPage = () => {
         </div>
 
         <CommentsCard
+          projectId={projectId}
           className={`${
             classes[`project-comments`]
           } bg-dark text-white rounded p-3`}
