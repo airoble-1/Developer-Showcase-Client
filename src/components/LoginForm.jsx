@@ -1,4 +1,4 @@
-import { useNavigate, Route, Link } from "react-router-dom"
+import { Navigate, useNavigate, Link } from "react-router-dom"
 import { useState, useContext } from "react"
 import { UserContext } from "../store/UserContext"
 import { Form, Button, Col, Row, Container, Spinner } from "react-bootstrap"
@@ -15,11 +15,12 @@ const LOGIN_USER = gql`
     }
   }
 `
-
+const INITIAL_ERROR_STATE = { email: "", password: "" }
 const LoginForm = () => {
   const { user, setUser } = useContext(UserContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [errors, setErrors] = useState(INITIAL_ERROR_STATE)
   const navigate = useNavigate()
   const [LoginMutation, { loading, error }] = useMutation(LOGIN_USER, {
     onCompleted: ({ login }) => {
@@ -31,8 +32,7 @@ const LoginForm = () => {
   })
   // a lot of these functions should be moved outside of LoginForm to be accessible so unit tests can be written for them.
   function validateEmail(email) {
-    const re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const re = /(.+)@(.+){2,}\.(.+){2,}/
     return re.test(String(email).toLowerCase())
   }
 
@@ -46,24 +46,26 @@ const LoginForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if (!validateForm()) {
-      return
-    }
-    LoginMutation({
-      variables: {
-        input: {
-          identifier: email,
-          password: password,
+    if (validateForm()) {
+      LoginMutation({
+        variables: {
+          input: {
+            identifier: email,
+            password: password,
+          },
         },
-      },
-    })
-
-    setEmail("")
-    setPassword("")
+      })
+      setEmail("")
+      setPassword("")
+    } else {
+      setErrors({ ...errors, email: "Please enter valid email" })
+    }
   }
+
   if (loading) return <Spinner animation="grow" />
-  if (error) return <h1>{error.message}</h1>
-  if (user) return <Route to="/" />
+  if (error) return <Navigate to="/login-error" />
+  if (user) return <Navigate to="/" />
+
   return (
     <Container>
       <Row className="d-flex justify-content-center">
@@ -77,7 +79,11 @@ const LoginForm = () => {
                 value={email}
                 required
                 onChange={(e) => setEmail(e.target.value)}
+                isInvalid={errors.email}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.email}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group size="lg" controlId="password">
               <Form.Label>Password</Form.Label>

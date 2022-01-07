@@ -9,7 +9,7 @@ import { useContext } from "react"
 import ForgotPasswordPage from "./pages/forgotPassword"
 import ResetPasswordPage from "./pages/resetPassword"
 import BlogPage from "./pages/blog"
-import useTimeout from "./hooks/useTimeout"
+import LoginErrorPage from "./pages/loginError"
 function PrivateRoute({ isAuth, children }) {
   return isAuth ? children : <Navigate to="/login" />
 }
@@ -27,6 +27,7 @@ function App() {
           path="/login"
           element={user ? <Navigate to="/" /> : <LoginPage />}
         />
+        <Route path="/login-error" element={<LoginErrorPage />} />
         <Route
           path="/details/:projectId"
           element={
