@@ -8,6 +8,9 @@ export const findComments = gql`
       author {
         firstName
         lastName
+        profileImage {
+          url
+        }
       }
       created_at
     }

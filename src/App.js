@@ -28,14 +28,7 @@ function App() {
           element={user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route path="/login-error" element={<LoginErrorPage />} />
-        <Route
-          path="/details/:projectId"
-          element={
-            <PrivateRoute isAuth={user}>
-              <DetailsPage />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/details/:projectId" element={<DetailsPage />} />
         <Route
           path="/upload"
           element={

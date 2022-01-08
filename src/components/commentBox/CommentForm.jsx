@@ -1,12 +1,12 @@
 import { useState } from "react"
 import classes from "./CommentForm.module.css"
 
-const CommentForm = ({ addComment }) => {
+const CommentForm = ({ callback }) => {
   const [message, setMessage] = useState("")
   const handleSubmit = (e) => {
     e.preventDefault()
     if (message) {
-      addComment(message)
+      callback(message)
       setMessage("")
     }
   }
