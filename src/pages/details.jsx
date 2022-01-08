@@ -31,6 +31,7 @@ const DetailsPage = () => {
               objectFit: "cover",
               height: "100%",
               width: "100%",
+              objectPosition: "left top",
             }}
             src={featuredImage.url}
             alt={name}
@@ -42,9 +43,9 @@ const DetailsPage = () => {
               src={profileImage.url}
               roundedCircle
               style={{
-                objectFit: "contain",
-                height: "40%",
-                width: "40%",
+                objectFit: "cover",
+                height: "175px",
+                width: "175px",
               }}
             ></Image>
             <p className="text-white fs-4">
@@ -61,7 +62,7 @@ const DetailsPage = () => {
                   <AiFillGithub />
                 </a>
               )}
-              {site && (
+              {website && (
                 <a href={website} className="display-5 text-secondary">
                   <CgWebsite />
                 </a>
