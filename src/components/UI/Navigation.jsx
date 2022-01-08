@@ -4,6 +4,7 @@ import { useContext } from "react"
 import { UserContext } from "../../store/UserContext"
 import client from "../../apollo/apolloClient"
 import classes from "./Navigation.module.css"
+import UserProfile from "../UserProfile"
 const Navigation = () => {
   const { user, setUser } = useContext(UserContext)
   const handleLogout = () => {
@@ -13,7 +14,7 @@ const Navigation = () => {
   }
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" className={classes.navbar}>
+      <Navbar collapseOnSelect expand="lg" className={`${classes.navbar} fs-5`}>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>DevHunter</Navbar.Brand>
@@ -40,10 +41,13 @@ const Navigation = () => {
             </Nav>
             {user && (
               <>
-                <span className={classes.greeting}>Hi Ahmed!</span>
+                <UserProfile size={50} />
                 <Button
-                  className="mx-2"
-                  variant="outline-secondary"
+                  className="mx-2 text-white"
+                  style={{
+                    border: "2px solid white",
+                  }}
+                  variant="outline-primary"
                   size="sm"
                   onClick={handleLogout}
                 >
