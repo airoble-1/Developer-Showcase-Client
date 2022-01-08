@@ -1,60 +1,61 @@
-import { useQuery, useMutation } from "@apollo/client"
-import { Spinner } from "react-bootstrap"
 import { useContext } from "react"
-import Comments from "./Comments"
-import CommentForm from "./CommentForm"
-import { UserContext } from "../../store/UserContext"
+import { useQuery, useMutation } from "@apollo/client"
+import Comments from "./../commentBox/Comments"
+import CommentForm from "./../commentBox/CommentForm"
+import { UserContext } from "./../../store/UserContext"
+import { useNavigate } from "react-router-dom"
+import { Button, Spinner } from "react-bootstrap"
 import { findComments } from "../../apollo/queries/findCommentsByProject"
 import { CREATE_COMMENT } from "../../apollo/mutations/createComment"
 
-const CommentsCard = ({ className, projectId }) => {
+export default function MessageCard({ projectID }) {
   const { user } = useContext(UserContext)
+  const navigate = useNavigate()
 
-  const { data, loading, error } = useQuery(findComments, {
-    variables: {
-      projectId,
-    },
+  const { loading, error, data } = useQuery(findComments, {
+    variables: { projectId: projectID },
   })
-  const [
-    createCommentMutation,
-    { error: commentError, loading: loadingNewComment },
-  ] = useMutation(CREATE_COMMENT)
 
-  const sendComment = async (message) => {
-    createCommentMutation({
+  const [createComment] = useMutation(CREATE_COMMENT)
+
+  if (loading) return <Spinner aniamtion="grow" />
+  if (error) return `Error! Unable to retreive comments`
+
+  function sendMessage(message) {
+    createComment({
       variables: {
         input: {
           data: {
             author: user.userId,
-            project: projectId,
+            project: projectID,
             comment: message,
           },
         },
       },
       refetchQueries: [
-        {
-          query: findComments,
-          variables: {
-            id: projectId,
-          },
-        },
+        { query: findComments, variables: { projectId: projectID } },
       ],
     })
   }
 
-  if (loading) return <Spinner />
-  if (error) return <p>Error: {error.message}</p>
-  if (loadingNewComment) return <Spinner />
-  if (commentError) return <p>Error: {commentError.message}</p>
-
   const { comments } = data
   return (
-    <div className={className}>
-      <h3>Comments</h3>
+    <div className="message-area bg-white shadow text-white rounded p-3">
+      <h3 className="text-dark">Latest Comments</h3>
       <Comments comments={comments} />
-      <CommentForm addComment={sendComment} />
+      {user ? (
+        <CommentForm callback={sendMessage} />
+      ) : (
+        <div className="d-grid gap-2">
+          <Button
+            onClick={() => navigate("/login")}
+            variant="primary"
+            size="sm"
+          >
+            Login
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
-
-export default CommentsCard

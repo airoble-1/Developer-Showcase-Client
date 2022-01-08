@@ -77,11 +77,6 @@ const ProjectCard = ({ project }) => {
     },
   })
 
-  const handleProjectDetails = () => {
-    if (!user) navigate("/login")
-    else navigate(`/details/${project.id}`)
-  }
-
   if (loading) return <p>Loading...</p>
   if (error || likeError) return <p>Error</p>
   return (
@@ -117,7 +112,10 @@ const ProjectCard = ({ project }) => {
             {project.description.substring(0, 151)}
             {project.description.length >= 150 && `...`}
           </Card.Text>
-          <Button className="details" onClick={handleProjectDetails}>
+          <Button
+            className="details"
+            onClick={() => navigate(`/details/${project.id}`)}
+          >
             Details
           </Button>
         </Card.Body>

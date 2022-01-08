@@ -37,8 +37,8 @@ const DetailsPage = () => {
             alt={name}
           ></Image>
         </div>
-        <div className={`${classes[`user-info`]} rounded bg-dark pt-2`}>
-          <div className="d-flex align-items-center flex-column justify-content-center ">
+        <div className={`${classes[`user-info`]} rounded bg-dark p-3`}>
+          <div className="d-flex align-items-center flex-column h-100 justify-content-between">
             <Image
               src={profileImage.url}
               roundedCircle
@@ -48,7 +48,7 @@ const DetailsPage = () => {
                 width: "175px",
               }}
             ></Image>
-            <p className="text-white fs-4">
+            <p className="text-white fs-2 fw-bold m-0">
               {`${firstName} ${lastName.substr(0, 1).toUpperCase()}`}
             </p>
             <div className="d-flex px-4 justify-content-around w-100 ">
@@ -63,7 +63,12 @@ const DetailsPage = () => {
                 </a>
               )}
               {website && (
-                <a href={website} className="display-5 text-secondary">
+                <a
+                  href={website}
+                  className="display-5 text-secondary"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <CgWebsite />
                 </a>
               )}
@@ -106,7 +111,7 @@ const DetailsPage = () => {
         </div>
 
         <CommentsCard
-          projectId={projectId}
+          projectID={projectId}
           className={`${
             classes[`project-comments`]
           } bg-dark text-white rounded p-3`}

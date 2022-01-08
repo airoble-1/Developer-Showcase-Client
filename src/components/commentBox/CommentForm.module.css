@@ -6,8 +6,8 @@
   margin-right: 0.5rem;
   padding: 0.5rem;
   border-radius: 5px;
-  border: none;
   color: #6c757d;
+  border: 1px solid #ced4da;
 }
 .btn {
   border: none;
