@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { UserContext } from "../store/UserContext"
 import useForm from "./../hooks/useForm"
 import createProjectMutation from "../apollo/mutations/createProject"
-import uploadFeatureImageMutation from "../apollo/mutations/uploadFeaturedImage"
+import uploadImageMutation from "./../apollo/mutations/uploadFeatureImage"
 import PROJECTS from "../apollo/queries/projects"
 
 export default function AddProject() {
@@ -15,9 +15,8 @@ export default function AddProject() {
   const [createProject, { error: errorProject }] = useMutation(
     createProjectMutation
   )
-  const [uploadFeaturedImage, { error: errorFile }] = useMutation(
-    uploadFeatureImageMutation
-  )
+  const [uploadImageFnc, { error: errorFile }] =
+    useMutation(uploadImageMutation)
   const [isUploading, setisUploading] = useState(false)
   const navigate = useNavigate()
   const {
@@ -48,7 +47,7 @@ export default function AddProject() {
     if (errorProject)
       return <h1>{errorProject.message} Unable to create new project</h1>
 
-    const uploadImageResponse = await uploadFeaturedImage({
+    const uploadImageResponse = await uploadImageFnc({
       variables: {
         collectionName: "project",
         collectionId: createProjectResponse.data.createProject.project.id,

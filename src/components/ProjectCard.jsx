@@ -45,7 +45,7 @@ const ProjectCard = ({ project }) => {
   }
 
   const checkIfProjectLiked = function (likes, user) {
-    return user ? likes.find((like) => like.user.id === user.userId) : false
+    return user ? likes.find((like) => like.user?.id === user.userId) : false
   }
   const [deleteLikeId] = useMutation(deleteLike)
 

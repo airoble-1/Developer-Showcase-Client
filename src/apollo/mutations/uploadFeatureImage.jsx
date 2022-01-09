@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client"
 
-const uploadFeatureImageMutation = gql`
-  mutation UPLOAD_FEATURED_IMAGE(
+const uploadImageMutation = gql`
+  mutation UPLOAD__IMAGE(
     $collectionName: String!
     $collectionId: ID!
     $fieldName: String!
@@ -18,4 +18,4 @@ const uploadFeatureImageMutation = gql`
   }
 `
 
-export default uploadFeatureImageMutation
+export default uploadImageMutation

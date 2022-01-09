@@ -10,6 +10,7 @@ import ForgotPasswordPage from "./pages/forgotPassword"
 import ResetPasswordPage from "./pages/resetPassword"
 import BlogPage from "./pages/blog"
 import LoginErrorPage from "./pages/loginError"
+import SignUpPage from "./pages/signUp"
 function PrivateRoute({ isAuth, children }) {
   return isAuth ? children : <Navigate to="/login" />
 }
@@ -28,6 +29,7 @@ function App() {
           element={user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route path="/login-error" element={<LoginErrorPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/details/:projectId" element={<DetailsPage />} />
         <Route
           path="/upload"

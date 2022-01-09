@@ -39,6 +39,8 @@ const useForm = (initial = {}) => {
     else errorMessages.github = "GitHub url is invalid"
     if (!values.site) errorMessages.site = "Website url is required"
     else errorMessages.site = "Project site url is invalid"
+    if (!values.imageUrl) errorMessages.imageUrl = "Image url is required"
+    else errorMessages.imageUrl = "Image url is invalid"
     return errorMessages
   }
 
