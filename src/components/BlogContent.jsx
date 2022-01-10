@@ -1,7 +1,7 @@
 import React from "react"
 import ReactMarkdown from "react-markdown"
 import { useQuery } from "@apollo/client"
-import { Container, Spinner } from "react-bootstrap"
+import { Container, Spinner, Image } from "react-bootstrap"
 import { GET_POST_DETAILS } from "../apollo/queries/postDetails"
 import { useParams } from "react-router"
 import classes from "./BlogContent.module.css"
@@ -17,13 +17,13 @@ export default function BlogContent() {
   const { title, content, author, created_at, heroImage } = post
   return (
     <Container>
-      <div>
+      <div className="w-100 mx-auto">
         {heroImage && (
-          <img
+          <Image
             className={classes[`img-container`]}
             src={heroImage.url}
             alt={title}
-          ></img>
+          ></Image>
         )}
       </div>
       <span>

@@ -66,7 +66,8 @@ export default function AddProject() {
   let errorMessages = setErrorMessages()
 
   return (
-    <Form className="my-4 p-2 rounded shadow" onSubmit={handleSubmit}>
+    <Form className="my-4 p-2 rounded shadow bg-white" onSubmit={handleSubmit}>
+      <h1>Project</h1>
       <fieldset disabled={isUploading}>
         <Form.Group className="mb-3" controlId="project-name">
           <Form.Label className="fw-bold">Name</Form.Label>

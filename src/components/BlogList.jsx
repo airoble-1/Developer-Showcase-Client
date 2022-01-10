@@ -8,7 +8,6 @@ export default function BlogList() {
   const { data, loading, error } = useQuery(GET_POSTS)
   if (loading) return <Spinner />
   if (error) return <h4>{error.message}</h4>
-  console.log(data.posts)
   return (
     <div className={classes.box}>
       <h2>All Posts</h2>

@@ -3,7 +3,7 @@ import Navigation from "./components/UI/Navigation"
 import DetailsPage from "./pages/details"
 import HomePage from "./pages/home"
 import LoginPage from "./pages/login"
-import ProjectUploadForm from "./pages/projectUploadForm"
+import UploadPage from "./pages/uploadPage"
 import { UserContext } from "./store/UserContext"
 import { useContext } from "react"
 import ForgotPasswordPage from "./pages/forgotPassword"
@@ -36,7 +36,7 @@ function App() {
           path="/upload"
           element={
             <PrivateRoute isAuth={user}>
-              <ProjectUploadForm />
+              <UploadPage />
             </PrivateRoute>
           }
         />

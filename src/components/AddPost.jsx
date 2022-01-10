@@ -1,14 +1,13 @@
-import { Button } from "react-bootstrap"
-import { useState } from "react"
-import { Form, Spinner } from "react-bootstrap"
+import { Button, Form, Spinner, Row, Col } from "react-bootstrap"
 import { useMutation } from "@apollo/client"
-import { useContext } from "react"
+import { useContext, useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "./../store/UserContext"
 import { GET_POSTS } from "./../apollo/queries/getPosts"
 import MarkdownEditor from "./MarkdownEditor"
 import useForm from "../hooks/useForm"
 import createPostMutation from "./../apollo/mutations/createPost"
+import uploadImageMutation from "./../apollo/mutations/uploadFeatureImage"
 
 const initial_state = {
   title: "",
@@ -18,12 +17,20 @@ const initial_state = {
 export default function AddPost() {
   let navigate = useNavigate()
   const { user } = useContext(UserContext)
+  const fileInput = useRef()
   const [content, setContent] = useState("")
   const { handleChange, values } = useForm(initial_state)
-  const [createPost, { error, loading }] = useMutation(createPostMutation)
+
+  const [createPost, { error: errorPost, loading }] =
+    useMutation(createPostMutation)
+
+  const [uploadImageFnc, { error: errorFile }] =
+    useMutation(uploadImageMutation)
+  const [isUploading, setisUploading] = useState(false)
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const data = await createPost({
+    const createPostResponse = await createPost({
       variables: {
         post: {
           data: {
@@ -35,35 +42,61 @@ export default function AddPost() {
       },
       refetchQueries: [{ query: GET_POSTS }],
     })
-    const {
-      data: {
-        createPost: { post },
+
+    if (errorPost) return <h1>There was an issue uploading your post</h1>
+    if (loading) return <Spinner></Spinner>
+
+    const uploadImageResponse = await uploadImageFnc({
+      variables: {
+        collectionName: "post",
+        collectionId: createPostResponse.data.createPost.post.id,
+        fieldName: "heroImage",
+        fileName: fileInput.current.files[0],
       },
-    } = data
-    if (data) navigate(`/blog/${post.id}`)
+    })
+    if (errorFile)
+      return <h1>{errorFile.message} Unable to upload image to post</h1>
+    const { data } = uploadImageResponse
+    if (data) setisUploading(false)
+    navigate(`/blog/${createPostResponse.data.createPost.post.id}`)
   }
 
-  if (error) return <h1>There was an issue uploading your post</h1>
-  if (loading) return <Spinner></Spinner>
-
   return (
-    <Form onSubmit={handleSubmit}>
-      <fieldset disabled={loading}>
-        <Form.Group className="mb-3" controlId="project-name">
-          <Form.Label className="fw-bold">Title</Form.Label>
-          <Form.Control
-            name="title"
-            type="text"
-            value={values.title || ""}
-            onChange={handleChange}
-            placeholder="Enter title of post"
-            required
-          />
-        </Form.Group>
-        <div className="shadow p-3 mt-3 rounded">
-          <MarkdownEditor value={content} onChange={setContent} />
-        </div>
-        <Button className="me-2" variant="primary" type="submit">
+    <Form className="my-4 p-2 rounded shadow bg-white" onSubmit={handleSubmit}>
+      <h1>Post</h1>
+      <fieldset disabled={isUploading}>
+        <Row>
+          <Col>
+            <Form.Group className="mb-3" controlId="post-tile">
+              <Form.Label className="fw-bold">Title</Form.Label>
+              <Form.Control
+                name="title"
+                type="text"
+                value={values.title || ""}
+                onChange={handleChange}
+                placeholder="Enter title of post"
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group className="mb-3" controlId="project-file">
+              <Form.Label className="fw-bold">Hero Image</Form.Label>
+              <Form.Control
+                type="file"
+                name="file"
+                onChange={handleChange}
+                required
+                ref={fileInput}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <p className="fw-bold">Please enter content below in markdown:</p>
+        <MarkdownEditor value={content} onChange={setContent} />
+
+        <Button className="my-3" variant="primary" type="submit">
           Create Post
         </Button>
       </fieldset>

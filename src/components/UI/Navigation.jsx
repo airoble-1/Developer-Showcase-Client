@@ -35,7 +35,7 @@ const Navigation = () => {
               )}
               {user && (
                 <LinkContainer to="/upload">
-                  <Nav.Link>Upload Project</Nav.Link>
+                  <Nav.Link>Upload</Nav.Link>
                 </LinkContainer>
               )}
             </Nav>
