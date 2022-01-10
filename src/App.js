@@ -3,13 +3,15 @@ import Navigation from "./components/UI/Navigation"
 import DetailsPage from "./pages/details"
 import HomePage from "./pages/home"
 import LoginPage from "./pages/login"
-import ProjectUploadForm from "./pages/projectUploadForm"
+import UploadPage from "./pages/uploadPage"
 import { UserContext } from "./store/UserContext"
 import { useContext } from "react"
 import ForgotPasswordPage from "./pages/forgotPassword"
 import ResetPasswordPage from "./pages/resetPassword"
 import BlogPage from "./pages/blog"
 import LoginErrorPage from "./pages/loginError"
+import ErrorPage from "./pages/errorPage"
+import SignUpPage from "./pages/signUp"
 function PrivateRoute({ isAuth, children }) {
   return isAuth ? children : <Navigate to="/login" />
 }
@@ -28,12 +30,13 @@ function App() {
           element={user ? <Navigate to="/" /> : <LoginPage />}
         />
         <Route path="/login-error" element={<LoginErrorPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/details/:projectId" element={<DetailsPage />} />
         <Route
           path="/upload"
           element={
             <PrivateRoute isAuth={user}>
-              <ProjectUploadForm />
+              <UploadPage />
             </PrivateRoute>
           }
         />
@@ -41,10 +44,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password/:code" element={<ResetPasswordPage />} />
 
-        <Route
-          path="*"
-          element={<h1>404 Error! this page does not exist</h1>}
-        />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   )

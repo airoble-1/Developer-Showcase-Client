@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { UserContext } from "../store/UserContext"
 import useForm from "./../hooks/useForm"
 import createProjectMutation from "../apollo/mutations/createProject"
-import uploadFeatureImageMutation from "../apollo/mutations/uploadFeaturedImage"
+import uploadImageMutation from "./../apollo/mutations/uploadFeatureImage"
 import PROJECTS from "../apollo/queries/projects"
 
 export default function AddProject() {
@@ -15,9 +15,8 @@ export default function AddProject() {
   const [createProject, { error: errorProject }] = useMutation(
     createProjectMutation
   )
-  const [uploadFeaturedImage, { error: errorFile }] = useMutation(
-    uploadFeatureImageMutation
-  )
+  const [uploadImageFnc, { error: errorFile }] =
+    useMutation(uploadImageMutation)
   const [isUploading, setisUploading] = useState(false)
   const navigate = useNavigate()
   const {
@@ -29,7 +28,7 @@ export default function AddProject() {
     values,
   } = useForm()
 
-  const { name, site, github, description } = values
+  const { name, site, gitHub, description } = values
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -40,7 +39,7 @@ export default function AddProject() {
         name,
         description,
         site,
-        github,
+        gitHub,
         userId,
       },
     })
@@ -48,7 +47,7 @@ export default function AddProject() {
     if (errorProject)
       return <h1>{errorProject.message} Unable to create new project</h1>
 
-    const uploadImageResponse = await uploadFeaturedImage({
+    const uploadImageResponse = await uploadImageFnc({
       variables: {
         collectionName: "project",
         collectionId: createProjectResponse.data.createProject.project.id,
@@ -67,7 +66,8 @@ export default function AddProject() {
   let errorMessages = setErrorMessages()
 
   return (
-    <Form className="my-4 p-2 rounded shadow" onSubmit={handleSubmit}>
+    <Form className="my-4 p-2 rounded shadow bg-white" onSubmit={handleSubmit}>
+      <h1>Project</h1>
       <fieldset disabled={isUploading}>
         <Form.Group className="mb-3" controlId="project-name">
           <Form.Label className="fw-bold">Name</Form.Label>
@@ -110,17 +110,18 @@ export default function AddProject() {
             <Form.Group className="mb-3" controlId="project-gitHub">
               <Form.Label className="fw-bold">GitHub</Form.Label>
               <Form.Control
-                name="github"
-                type="text"
-                value={values.github || ""}
+                name="gitHub"
+                type="url"
+                pattern="https://.*"
+                value={values.gitHub || ""}
                 onChange={handleChange}
                 onBlur={handleUrlValidation}
                 placeholder="Enter GitHub url"
                 required
-                isInvalid={errors.github}
+                isInvalid={errors.gitHub}
               />
               <Form.Control.Feedback type="invalid">
-                {errorMessages.github}
+                {errorMessages.gitHub}
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -130,11 +131,12 @@ export default function AddProject() {
               <Form.Label className="fw-bold">Live Site</Form.Label>
               <Form.Control
                 name="site"
-                type="text"
+                type="url"
+                pattern="https://.*"
                 value={values.site || ""}
                 onBlur={handleUrlValidation}
                 onChange={handleChange}
-                placeholder="Enter live site url"
+                placeholder="Enter demo site url"
                 required
                 isInvalid={errors.site}
               />

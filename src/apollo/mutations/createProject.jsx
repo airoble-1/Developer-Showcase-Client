@@ -4,7 +4,7 @@ const createProjectMutation = gql`
   mutation CREATE_PROJECT(
     $name: String!
     $description: String!
-    $github: String!
+    $gitHub: String!
     $site: String!
     $userId: ID!
   ) {
@@ -13,7 +13,7 @@ const createProjectMutation = gql`
         data: {
           name: $name
           description: $description
-          github: $github
+          github: $gitHub
           site: $site
           developer: $userId
         }

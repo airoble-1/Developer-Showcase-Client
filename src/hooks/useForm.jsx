@@ -18,7 +18,7 @@ const useForm = (initial = {}) => {
     setErrors({})
   }
   const urlRegex =
-    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    /https:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
 
   const isUrlValid = (url, regex) => {
     const valid = url.match(regex)
@@ -35,10 +35,26 @@ const useForm = (initial = {}) => {
 
   const setErrorMessages = () => {
     let errorMessages = {}
-    if (!values.github) errorMessages.github = "GitHub url is required"
-    else errorMessages.github = "GitHub url is invalid"
+    if (!values.gitHub) errorMessages.gitHub = "GitHub url is required"
+    else
+      errorMessages.gitHub =
+        "Please enter url ex. https://www.example.com or https://example.com"
+    if (!values.website) errorMessages.website = "Website url is required"
+    else
+      errorMessages.site =
+        "Please enter url ex. https://www.example.com or https://example.com"
     if (!values.site) errorMessages.site = "Website url is required"
-    else errorMessages.site = "Project site url is invalid"
+    else
+      errorMessages.site =
+        "Please enter url ex. https://www.example.com or https://example.com"
+    if (!values.resume) errorMessages.resume = "Resume url is required"
+    else
+      errorMessages.resume =
+        "Please enter url ex. https://www.example.com or https://example.com"
+    if (!values.linkedIn) errorMessages.linkedIn = "Linkedin url is required"
+    else
+      errorMessages.linkedIn =
+        "Please enter url ex. https://www.example.com or https://example.com"
     return errorMessages
   }
 
