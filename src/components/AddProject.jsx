@@ -28,7 +28,7 @@ export default function AddProject() {
     values,
   } = useForm()
 
-  const { name, site, github, description } = values
+  const { name, site, gitHub, description } = values
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -39,7 +39,7 @@ export default function AddProject() {
         name,
         description,
         site,
-        github,
+        gitHub,
         userId,
       },
     })
@@ -109,17 +109,18 @@ export default function AddProject() {
             <Form.Group className="mb-3" controlId="project-gitHub">
               <Form.Label className="fw-bold">GitHub</Form.Label>
               <Form.Control
-                name="github"
-                type="text"
-                value={values.github || ""}
+                name="gitHub"
+                type="url"
+                pattern="https://.*"
+                value={values.gitHub || ""}
                 onChange={handleChange}
                 onBlur={handleUrlValidation}
                 placeholder="Enter GitHub url"
                 required
-                isInvalid={errors.github}
+                isInvalid={errors.gitHub}
               />
               <Form.Control.Feedback type="invalid">
-                {errorMessages.github}
+                {errorMessages.gitHub}
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -129,11 +130,12 @@ export default function AddProject() {
               <Form.Label className="fw-bold">Live Site</Form.Label>
               <Form.Control
                 name="site"
-                type="text"
+                type="url"
+                pattern="https://.*"
                 value={values.site || ""}
                 onBlur={handleUrlValidation}
                 onChange={handleChange}
-                placeholder="Enter live site url"
+                placeholder="Enter demo site url"
                 required
                 isInvalid={errors.site}
               />

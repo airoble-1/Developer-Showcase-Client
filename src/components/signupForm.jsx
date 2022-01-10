@@ -157,10 +157,9 @@ export default function AddProject() {
                 type="text"
                 value={values.username || ""}
                 onChange={handleChange}
-                onBlur={handleUrlValidation}
                 placeholder="Enter username"
                 required
-                isInvalid={errors.resume}
+                isInvalid={errors.username}
               />
               <Form.Control.Feedback type="invalid">
                 {errorMessages.username}
@@ -188,7 +187,8 @@ export default function AddProject() {
               <Form.Label className="fw-bold">GitHub</Form.Label>
               <Form.Control
                 name="gitHub"
-                type="text"
+                type="url"
+                pattern="https://.*"
                 value={values.gitHub || ""}
                 onChange={handleChange}
                 onBlur={handleUrlValidation}
@@ -207,11 +207,12 @@ export default function AddProject() {
               <Form.Label className="fw-bold">Website</Form.Label>
               <Form.Control
                 name="website"
-                type="text"
+                type="url"
+                pattern="https://.*"
                 value={values.website || ""}
                 onBlur={handleUrlValidation}
                 onChange={handleChange}
-                placeholder="Enter live site url"
+                placeholder="Enter portfolio site url"
                 required
                 isInvalid={errors.website}
               />

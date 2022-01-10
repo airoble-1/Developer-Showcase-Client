@@ -94,8 +94,13 @@ const ProjectCard = ({ project }) => {
         >
           <img
             className={classes.profile}
-            src={project.developer.profileImage.url}
-            alt={`${project.developer.firstName} ${project.developer.lastName}`}
+            src={
+              project.developer?.profileImage.url ||
+              "https://res.cloudinary.com/dlwqjptsg/image/upload/v1641773414/3551739_o9cxsr.jpg"
+            }
+            alt={`${project.developer?.firstName || "Guest"} ${
+              project.developer?.lastName || "User"
+            }`}
           ></img>
           <div className="d-flex flex-column align-items-center">
             {checkIfProjectLiked(data.likes, user) ? (

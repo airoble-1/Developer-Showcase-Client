@@ -10,6 +10,7 @@ import ForgotPasswordPage from "./pages/forgotPassword"
 import ResetPasswordPage from "./pages/resetPassword"
 import BlogPage from "./pages/blog"
 import LoginErrorPage from "./pages/loginError"
+import ErrorPage from "./pages/errorPage"
 import SignUpPage from "./pages/signUp"
 function PrivateRoute({ isAuth, children }) {
   return isAuth ? children : <Navigate to="/login" />
@@ -43,10 +44,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password/:code" element={<ResetPasswordPage />} />
 
-        <Route
-          path="*"
-          element={<h1>404 Error! this page does not exist</h1>}
-        />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   )
