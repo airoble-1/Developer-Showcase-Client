@@ -53,12 +53,22 @@ const DetailsPage = () => {
             </p>
             <div className="d-flex px-4 justify-content-around w-100 ">
               {linkedIn && (
-                <a href={linkedIn} className="display-5 text-secondary">
+                <a
+                  href={linkedIn}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="display-5 text-secondary"
+                >
                   <AiFillLinkedin />
                 </a>
               )}
               {gitHub && (
-                <a href={gitHub} className="display-5 text-secondary">
+                <a
+                  href={gitHub}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="display-5 text-secondary"
+                >
                   <AiFillGithub />
                 </a>
               )}
@@ -74,7 +84,12 @@ const DetailsPage = () => {
               )}
 
               {site && (
-                <a href={site} className="display-5 text-secondary">
+                <a
+                  href={site}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="display-5 text-secondary"
+                >
                   <ImBlog />
                 </a>
               )}
@@ -87,6 +102,7 @@ const DetailsPage = () => {
                   size="lg"
                   href={website}
                   target="_blank"
+                  rel="noreferrer"
                 >
                   Live Demo
                 </Button>
@@ -98,6 +114,7 @@ const DetailsPage = () => {
                   size="lg"
                   href={github}
                   target="_blank"
+                  rel="noreferrer"
                 >
                   GitHub
                 </Button>

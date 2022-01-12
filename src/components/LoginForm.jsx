@@ -1,9 +1,9 @@
-import { Navigate, useNavigate, Link } from "react-router-dom"
+import { Navigate, Link } from "react-router-dom"
 import { useState, useContext } from "react"
 import { UserContext } from "../store/UserContext"
 import { Form, Button, Col, Row, Container, Spinner } from "react-bootstrap"
 import { useMutation, gql } from "@apollo/client"
-
+import classes from "./LoginForm.module.css"
 const LOGIN_USER = gql`
   mutation UserLogin($input: UsersPermissionsLoginInput!) {
     login(input: $input) {
@@ -21,7 +21,6 @@ const LoginForm = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState(INITIAL_ERROR_STATE)
-  const navigate = useNavigate()
   const [LoginMutation, { loading, error }] = useMutation(LOGIN_USER, {
     onCompleted: ({ login }) => {
       setUser({
@@ -69,50 +68,64 @@ const LoginForm = () => {
   return (
     <Container>
       <Row className="d-flex justify-content-center">
-        <Col sm={12} md={6} xl={4}>
-          <Form onSubmit={submitHandler}>
-            <Form.Group size="lg" controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Email"
-                value={email}
-                required
-                onChange={(e) => setEmail(e.target.value)}
-                isInvalid={errors.email}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.email}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group size="lg" controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Button className="mt-2 btn-success" type="submit">
-              Login
-            </Button>
-            <Button
-              variant="info"
-              className="mt-2 mx-2"
-              onClick={() => navigate(-1)}
-            >
-              Go Back
-            </Button>
-
-            <Link
-              className="text-secondary d-inline-block mx-3"
-              to="/forgot-password"
-            >
-              Forgot Password?
-            </Link>
-          </Form>
+        <Col xs={12} sm={10} md={8} xl={6}>
+          <div className={classes[`box`]}>
+            <h1 className="text-center">Welcome back</h1>
+            <p className="text-center">
+              Login and find your perfect developer!
+            </p>
+            <Form onSubmit={submitHandler}>
+              <Form.Group className="mb-2" size="lg" controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  className="py-2"
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                  isInvalid={errors.email}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group className="mb-2" size="lg" controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  className="py-2"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Link
+                className="text-secondary d-inline-block mx-3"
+                to="/forgot-password"
+              >
+                Forgot Password?
+              </Link>
+              <div className="d-flex justify-content-center mt-2">
+                <Button
+                  className="my-2 btn-success rounded-pill py-2 fs-5 fw-bold w-50"
+                  type="submit"
+                >
+                  Log in
+                </Button>
+              </div>
+              <p className="text-center">
+                Don't have an account?
+                <Link
+                  className="text-secondary text-decoration-underline d-inline-block"
+                  to="/signup"
+                >
+                  Sign up
+                </Link>
+              </p>
+            </Form>
+          </div>
         </Col>
       </Row>
     </Container>

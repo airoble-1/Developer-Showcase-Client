@@ -1,0 +1,7 @@
+.box {
+  box-shadow: 2px 2px 7px -1px rgba(0, 0, 0, 0.2);
+  border-radius: 0.4rem;
+  background-color: #fff;
+  width: 100%;
+  padding: 1rem 2rem;
+}

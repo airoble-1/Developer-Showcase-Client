@@ -1,11 +1,11 @@
 import { useRef, useState } from "react"
 import { useMutation } from "@apollo/client"
 import { Form, Button, Row, Col } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import useForm from "./../hooks/useForm"
 import createUserMutation from "../apollo/mutations/createUser"
 import uploadImageMutation from "./../apollo/mutations/uploadProfileImage"
-
+import classes from "./signupForm.module.css"
 export default function AddProject() {
   const [isUploading, setisUploading] = useState(false)
   const fileInput = useRef()
@@ -88,195 +88,213 @@ export default function AddProject() {
   let errorMessages = setErrorMessages()
 
   return (
-    <Form className="my-4 p-2 rounded shadow" onSubmit={handleSubmit}>
-      <fieldset disabled={isUploading}>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="firstName">
-              <Form.Label className="fw-bold">First Name</Form.Label>
-              <Form.Control
-                name="firstName"
-                type="text"
-                value={values.firstName || ""}
-                onChange={handleChange}
-                placeholder="Enter first name"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3" controlId="lastName">
-              <Form.Label className="fw-bold">Last Name</Form.Label>
-              <Form.Control
-                name="lastName"
-                type="text"
-                value={values.lastName || ""}
-                onChange={handleChange}
-                placeholder="Enter first name"
-                required
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="email">
-              <Form.Label className="fw-bold">Email</Form.Label>
-              <Form.Control
-                name="email"
-                type="email"
-                value={values.email || ""}
-                onChange={handleChange}
-                placeholder="Enter email address"
-                required
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3" controlId="password">
-              <Form.Label className="fw-bold">Password</Form.Label>
-              <Form.Control
-                name="password"
-                type="password"
-                value={values.password || ""}
-                onChange={handleChange}
-                placeholder="Enter password"
-                required
-                min={6}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
+    <Row className="d-flex justify-content-center mt-4">
+      <Col xs={12} sm={10} md={8} xl={6}>
+        <div className={classes[`box`]}>
+          <h1 className="text-center">Get started with DevHunter</h1>
+          <p className="text-center">
+            Signup now and share your developer journey!
+          </p>
+          <Form onSubmit={handleSubmit}>
+            <fieldset disabled={isUploading}>
+              <Row>
+                <Col className="col-12 col-lg-6">
+                  <Form.Group className="mb-3" controlId="firstName">
+                    <Form.Label className="fw-bold">First Name</Form.Label>
+                    <Form.Control
+                      name="firstName"
+                      type="text"
+                      value={values.firstName || ""}
+                      onChange={handleChange}
+                      placeholder="Enter first name"
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col className="col-12 col-lg-6">
+                  <Form.Group className="mb-3" controlId="lastName">
+                    <Form.Label className="fw-bold">Last Name</Form.Label>
+                    <Form.Control
+                      name="lastName"
+                      type="text"
+                      value={values.lastName || ""}
+                      onChange={handleChange}
+                      placeholder="Enter first name"
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="email">
+                    <Form.Label className="fw-bold">Email</Form.Label>
+                    <Form.Control
+                      name="email"
+                      type="email"
+                      value={values.email || ""}
+                      onChange={handleChange}
+                      placeholder="Enter email address"
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col className="col-12 col-lg-6">
+                  <Form.Group className="mb-3" controlId="password">
+                    <Form.Label className="fw-bold">Password</Form.Label>
+                    <Form.Control
+                      name="password"
+                      type="password"
+                      value={values.password || ""}
+                      onChange={handleChange}
+                      placeholder="Enter password"
+                      required
+                      min={6}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-        <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="username">
-              <Form.Label className="fw-bold">Username</Form.Label>
-              <Form.Control
-                name="username"
-                type="text"
-                value={values.username || ""}
-                onChange={handleChange}
-                placeholder="Enter username"
-                required
-                isInvalid={errors.username}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errorMessages.username}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
+              <Row>
+                <Col className="col-12 col-lg-6">
+                  <Form.Group className="mb-3" controlId="username">
+                    <Form.Label className="fw-bold">Username</Form.Label>
+                    <Form.Control
+                      name="username"
+                      type="text"
+                      value={values.username || ""}
+                      onChange={handleChange}
+                      placeholder="Enter username"
+                      required
+                      isInvalid={errors.username}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errorMessages.username}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
 
-          <Col>
-            <Form.Group className="mb-3" controlId="profileImage">
-              <Form.Label className="fw-bold">Profile Image</Form.Label>
-              <Form.Control
-                type="file"
-                name="file"
-                onChange={handleChange}
-                required
-                ref={fileInput}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
+                <Col className="col-12 col-lg-6">
+                  <Form.Group className="mb-3" controlId="profileImage">
+                    <Form.Label className="fw-bold">Profile Image</Form.Label>
+                    <Form.Control
+                      type="file"
+                      name="file"
+                      onChange={handleChange}
+                      required
+                      ref={fileInput}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-        <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="gitHub">
-              <Form.Label className="fw-bold">GitHub</Form.Label>
-              <Form.Control
-                name="gitHub"
-                type="url"
-                pattern="https://.*"
-                value={values.gitHub || ""}
-                onChange={handleChange}
-                onBlur={handleUrlValidation}
-                placeholder="Enter GitHub url"
-                required
-                isInvalid={errors.gitHub}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errorMessages.gitHub}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
+              <Row>
+                <Col className="col-12 col-lg-6">
+                  <Form.Group className="mb-3" controlId="gitHub">
+                    <Form.Label className="fw-bold">GitHub</Form.Label>
+                    <Form.Control
+                      name="gitHub"
+                      type="url"
+                      pattern="https://.*"
+                      value={values.gitHub || ""}
+                      onChange={handleChange}
+                      onBlur={handleUrlValidation}
+                      placeholder="Enter GitHub url"
+                      required
+                      isInvalid={errors.gitHub}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errorMessages.gitHub}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
 
-          <Col>
-            <Form.Group className="mb-3" controlId="project-website">
-              <Form.Label className="fw-bold">Website</Form.Label>
-              <Form.Control
-                name="website"
-                type="url"
-                pattern="https://.*"
-                value={values.website || ""}
-                onBlur={handleUrlValidation}
-                onChange={handleChange}
-                placeholder="Enter portfolio site url"
-                required
-                isInvalid={errors.website}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errorMessages.website}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="resume">
-              <Form.Label className="fw-bold">Resume</Form.Label>
-              <Form.Control
-                name="resume"
-                type="text"
-                value={values.resume || ""}
-                onChange={handleChange}
-                onBlur={handleUrlValidation}
-                placeholder="Enter resume url"
-                required
-                isInvalid={errors.resume}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errorMessages.resume}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
+                <Col className="col-12 col-lg-6">
+                  <Form.Group className="mb-3" controlId="project-website">
+                    <Form.Label className="fw-bold">Website</Form.Label>
+                    <Form.Control
+                      name="website"
+                      type="url"
+                      pattern="https://.*"
+                      value={values.website || ""}
+                      onBlur={handleUrlValidation}
+                      onChange={handleChange}
+                      placeholder="Enter portfolio site url"
+                      required
+                      isInvalid={errors.website}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errorMessages.website}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col className="col-12 col-lg-6">
+                  <Form.Group className="mb-3" controlId="resume">
+                    <Form.Label className="fw-bold">Resume</Form.Label>
+                    <Form.Control
+                      name="resume"
+                      type="text"
+                      value={values.resume || ""}
+                      onChange={handleChange}
+                      onBlur={handleUrlValidation}
+                      placeholder="Enter resume url"
+                      required
+                      isInvalid={errors.resume}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errorMessages.resume}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
 
-          <Col>
-            <Form.Group className="mb-3" controlId="linkedIn">
-              <Form.Label className="fw-bold">LinkedIn</Form.Label>
-              <Form.Control
-                name="linkedIn"
-                type="url"
-                placeholder="https://www.example.com"
-                pattern="https://.*"
-                value={values.linkedIn || ""}
-                onBlur={handleUrlValidation}
-                onChange={handleChange}
-                required
-                isInvalid={errors.linkedIn}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errorMessages.linkedIn}
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Col>
-        </Row>
-
-        <div className="d-flex justify-content-between">
-          <div>
-            <Button className="me-2" variant="primary" type="submit">
-              Sign Up
-            </Button>
-            <Button variant="secondary" type="submit" onClick={clearFields}>
-              Clear
-            </Button>
-          </div>
-          <Button onClick={() => navigate(-1)} variant="primary" type="button">
-            Go Back
-          </Button>
+                <Col className="col-12 col-lg-6">
+                  <Form.Group className="mb-3" controlId="linkedIn">
+                    <Form.Label className="fw-bold">LinkedIn</Form.Label>
+                    <Form.Control
+                      name="linkedIn"
+                      type="url"
+                      placeholder="https://www.example.com"
+                      pattern="https://.*"
+                      value={values.linkedIn || ""}
+                      onBlur={handleUrlValidation}
+                      onChange={handleChange}
+                      required
+                      isInvalid={errors.linkedIn}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errorMessages.linkedIn}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <div className="d-flex justify-content-between rounded">
+                <Button variant="secondary" type="submit" onClick={clearFields}>
+                  Clear
+                </Button>
+              </div>
+              <div className="d-flex justify-content-center mt-2">
+                <Button
+                  className="my-2 btn-success rounded-pill py-2 fs-5 fw-bold w-50"
+                  type="submit"
+                >
+                  Sign up
+                </Button>
+              </div>
+              <p className="text-center">
+                Already have an account?
+                <Link
+                  className="text-secondary text-decoration-underline d-inline-block"
+                  to="/login"
+                >
+                  Log in
+                </Link>
+              </p>
+            </fieldset>
+          </Form>
         </div>
-      </fieldset>
-    </Form>
+      </Col>
+    </Row>
   )
 }
