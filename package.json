@@ -11,6 +11,7 @@
     "apollo-upload-client": "^16.0.0",
     "bootstrap": "^5.1.2",
     "graphql": "^15.6.0",
+    "netlify-cli": "^8.6.23",
     "normalize.css": "^8.0.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-rc.0",
@@ -24,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && echo '/* /index.html  200' | cat >build/_redirects",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
