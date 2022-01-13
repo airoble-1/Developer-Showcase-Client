@@ -8,7 +8,10 @@ const uploadLink = createUploadLink({
   project should atleast include the backend url for dev environment
   It should only be injected as a process environment variable if this app will be deployed to multiple servers, otherwise it should be an application environment variable
   */
-  uri: `https://stormy-sands-93557.herokuapp.com/graphql`,
+
+  uri:
+    `${process.env.REACT_APP_BACKEND_URL}` ||
+    "https://stormy-sands-93557.herokuapp.com/graphql",
 })
 
 const authLink = setContext((_, { headers }) => {
