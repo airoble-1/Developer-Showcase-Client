@@ -10,8 +10,9 @@ const uploadLink = createUploadLink({
   */
 
   uri:
-    `${process.env.REACT_APP_BACKEND_URL}` ||
-    "https://stormy-sands-93557.herokuapp.com/graphql",
+    process.env.NODE_ENV === "production"
+      ? "https://stormy-sands-93557.herokuapp.com/graphql"
+      : `${process.env.REACT_APP_BACKEND_URL}`,
 })
 
 const authLink = setContext((_, { headers }) => {
