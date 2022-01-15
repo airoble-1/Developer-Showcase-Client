@@ -89,7 +89,7 @@ export default function AddProject() {
 
   return (
     <Row className="d-flex justify-content-center mt-4">
-      <Col xs={12} sm={10} md={8} xl={6}>
+      <Col xs={12} sm={10} md={8}>
         <div className={classes[`box`]}>
           <h1 className="text-center">Get started with DevHunter</h1>
           <p className="text-center">
@@ -255,7 +255,7 @@ export default function AddProject() {
                     <Form.Control
                       name="linkedIn"
                       type="url"
-                      placeholder="https://www.example.com"
+                      placeholder="Enter linkedIn url"
                       pattern="https://.*"
                       value={values.linkedIn || ""}
                       onBlur={handleUrlValidation}
@@ -274,9 +274,11 @@ export default function AddProject() {
                   Clear
                 </Button>
               </div>
-              <div className="d-flex justify-content-center mt-2">
+              <div className="d-flex justify-content-center my-2">
                 <Button
-                  className="my-2 btn-success rounded-pill py-2 fs-5 fw-bold w-50"
+                  className={`${
+                    classes[`btn`]
+                  }my-2 btn-success rounded-pill py-2 px-5 fs-5 fw-bold`}
                   type="submit"
                 >
                   Sign up
