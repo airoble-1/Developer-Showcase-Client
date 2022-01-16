@@ -28,6 +28,9 @@ const Navigation = () => {
               <LinkContainer to="/blog">
                 <Nav.Link>Blog</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/bugs">
+                <Nav.Link>Bugs</Nav.Link>
+              </LinkContainer>
               {!user && (
                 <LinkContainer to="/login">
                   <Nav.Link>Login</Nav.Link>

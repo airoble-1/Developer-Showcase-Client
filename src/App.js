@@ -1,17 +1,20 @@
 import { Route, Routes, Navigate } from "react-router-dom"
-import Navigation from "./components/UI/Navigation"
-import DetailsPage from "./pages/details"
-import HomePage from "./pages/home"
-import LoginPage from "./pages/login"
-import UploadPage from "./pages/uploadPage"
 import { UserContext } from "./store/UserContext"
 import { useContext } from "react"
+
+import Navigation from "./components/UI/Navigation"
+import HomePage from "./pages/home"
+import DetailsPage from "./pages/details"
+import BlogPage from "./pages/blog"
+import BugPage from "./pages/bug"
+import UploadPage from "./pages/uploadPage"
+import SignUpPage from "./pages/signUp"
+import LoginPage from "./pages/login"
+import LoginErrorPage from "./pages/loginError"
 import ForgotPasswordPage from "./pages/forgotPassword"
 import ResetPasswordPage from "./pages/resetPassword"
-import BlogPage from "./pages/blog"
-import LoginErrorPage from "./pages/loginError"
 import ErrorPage from "./pages/errorPage"
-import SignUpPage from "./pages/signUp"
+
 function PrivateRoute({ isAuth, children }) {
   return isAuth ? children : <Navigate to="/login" />
 }
@@ -41,6 +44,7 @@ function App() {
           }
         />
         <Route path="/blog/*" element={<BlogPage />} />
+        <Route path="/bugs/" element={<BugPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password/:code" element={<ResetPasswordPage />} />
 

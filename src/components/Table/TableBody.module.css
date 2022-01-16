@@ -1,3 +1,12 @@
 .td {
-  padding: 10px;
+  padding: 1.15rem;
+  white-space: nowrap;
+}
+
+.first-col {
+  color: #7740d9;
+}
+
+.row {
+  border-bottom: 1px solid #3a4250;
 }
