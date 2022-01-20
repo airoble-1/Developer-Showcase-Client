@@ -1,5 +1,5 @@
 function TableHeader(props) {
-  return <div></div>
+  return <div {...props}></div>
 }
 
 export default TableHeader

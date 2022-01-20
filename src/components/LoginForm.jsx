@@ -72,7 +72,7 @@ const LoginForm = () => {
           <div className={classes[`box`]}>
             <h1 className="text-center">Welcome back</h1>
             <p className="text-center">
-              Login and find your perfect developer!
+              Login and share your developer journey!
             </p>
             <Form onSubmit={submitHandler}>
               <Form.Group className="mb-2" size="lg" controlId="email">
