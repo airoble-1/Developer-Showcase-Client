@@ -44,7 +44,15 @@ function App() {
           }
         />
         <Route path="/blog/*" element={<BlogPage />} />
-        <Route path="/bugs/" element={<BugPage />} />
+        <Route
+          path="/bugs"
+          element={
+            <PrivateRoute isAuth={user}>
+              <BugPage />
+            </PrivateRoute>
+          }
+        />
+
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password/:code" element={<ResetPasswordPage />} />
 

@@ -1,12 +1,14 @@
 import { useState } from "react"
 import { Button, Spinner } from "react-bootstrap"
 import { useQuery } from "@apollo/client"
-import { GET_ISSUES } from "../apollo/queries/getIssues"
 import IssuesTable from "./IssuesTable"
+import AddIssue from "./AddIssue"
 
-function BugTracker() {
+function BugTracker({ query, variables }) {
   const [showAddIssueForm, setShowAddIssueForm] = useState(true)
-  const { data, loading, error } = useQuery(GET_ISSUES)
+  const { data, loading, error } = useQuery(query, {
+    variables,
+  })
   if (loading) return <Spinner />
   if (error) return <h4>{error.message}</h4>
   const { issues } = data
@@ -19,7 +21,11 @@ function BugTracker() {
       >
         {showAddIssueForm ? "+" : "-"}
       </Button>
-      {showAddIssueForm ? <IssuesTable data={issues} /> : null}
+      {showAddIssueForm ? (
+        <IssuesTable data={issues} />
+      ) : (
+        <AddIssue setShowAddIssueForm={setShowAddIssueForm} />
+      )}
     </>
   )
 }
