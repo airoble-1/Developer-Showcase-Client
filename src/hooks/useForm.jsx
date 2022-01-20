@@ -13,7 +13,6 @@ const useForm = (initial = {}) => {
       [name]: value,
     }))
   }
-
   const clearFields = () => {
     setValues({})
     setErrors({})

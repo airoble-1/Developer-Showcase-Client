@@ -9,10 +9,9 @@ import DatePicker from "react-datepicker"
 import useForm from "./../hooks/useForm"
 import PROJECTS from "../apollo/queries/projects"
 import { CREATE_ISSUE } from "../apollo/mutations/createIssue"
-import { GET_ISSUES } from "../apollo/queries/getIssues"
 import "react-datepicker/dist/react-datepicker.css"
 
-const AddIssue = ({ setShowAddIssueForm }) => {
+const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
   const [isUploading, setisUploading] = useState(false)
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
@@ -61,14 +60,14 @@ const AddIssue = ({ setShowAddIssueForm }) => {
             priority,
             severity,
             description,
-            project,
+            project: projectId || project,
             status: "new",
             createdBy: userId,
             dueDate,
           },
         },
       },
-      refetchQueries: [{ query: GET_ISSUES }],
+      refetchQueries: [{ query, variables }],
     })
     setShowAddIssueForm((prevState) => !prevState)
     setisUploading(false)
@@ -124,8 +123,9 @@ const AddIssue = ({ setShowAddIssueForm }) => {
               <Form.Label className="fw-bold">Project</Form.Label>
               <Form.Select
                 name="project"
-                value={values.project || ""}
+                value={projectId || values.project}
                 onChange={handleChange}
+                disabled={projectId}
                 required
               >
                 <option>Select Project</option>

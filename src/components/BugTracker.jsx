@@ -10,7 +10,10 @@ function BugTracker({ query, variables }) {
     variables,
   })
   if (loading) return <Spinner />
-  if (error) return <h4>{error.message}</h4>
+  if (error) {
+    console.error(error)
+    return <div>{`Error! ${error.message}`}</div>
+  }
   const { issues } = data
   return (
     <>
@@ -24,7 +27,12 @@ function BugTracker({ query, variables }) {
       {showAddIssueForm ? (
         <IssuesTable data={issues} />
       ) : (
-        <AddIssue setShowAddIssueForm={setShowAddIssueForm} />
+        <AddIssue
+          setShowAddIssueForm={setShowAddIssueForm}
+          projectId={variables?.projectId}
+          query={query}
+          variables={variables}
+        />
       )}
     </>
   )

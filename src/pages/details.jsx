@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom"
 import classes from "./details.module.css"
 import { projectDetails } from "../apollo/queries/projectDetails"
 import CommentsCard from "../components/commentBox/CommentsCard"
+import BugTracker from "../components/BugTracker"
+import { GET_ISSUES_BY_PROJECT } from "../apollo/queries/findIssuesByProject"
 const DetailsPage = () => {
   const { projectId } = useParams()
   const { error, data, loading } = useQuery(projectDetails, {
@@ -23,7 +25,7 @@ const DetailsPage = () => {
     developer: { firstName, lastName, profileImage, linkedIn, gitHub, website },
   } = data.project
   return (
-    <Container>
+    <Container className="mb-5">
       <div className={`${classes.container} my-3`}>
         <div className={`${classes[`project-hero`]} overflow-hidden rounded`}>
           <Image
@@ -134,6 +136,7 @@ const DetailsPage = () => {
           } bg-dark text-white rounded p-3`}
         />
       </div>
+      <BugTracker query={GET_ISSUES_BY_PROJECT} variables={{ projectId }} />
     </Container>
   )
 }
