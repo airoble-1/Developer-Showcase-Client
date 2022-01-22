@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# DevHunter (client)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web platform for developers to showcase their projects and collaborate to learn and improve skills. 
 
-## Available Scripts
+## 1. Table of contents
 
-In the project directory, you can run:
+  - [1. Table of contents](#1-table-of-contents-️)
+  - [2. Overview](#2-overview-)
+    - [The challenge](#the-challenge)
+    - [Screenshots](#screenshots)
+    - [Links](#links)
+  - [3. My process](#3-my-process-)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+    - [Continued development](#continued-development)
+    - [Useful resources](#useful-resources)
+  - [4. Author](#4-author-)
 
-### `npm start`
+## 2. Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### The challenge
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Users should be able to:
 
-### `npm test`
+- View the optimal layout for each of the website's pages depending on their device's screen size
+- See hover states for all interactive elements on the page
+- View each page and be able to toggle between the tabs to see new information
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can checkout the challenge details in the [Frontend Mentor page](https://www.frontendmentor.io/challenges/space-tourism-multipage-website-gRWj1URZ3).
 
-### `npm run build`
+### Screenshots
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**_Desktop Layout_** (1440 X 900)\
+![](./screenshots/desktop/home-desktop.png)
+![](./screenshots/desktop/destination-desktop.png)
+![](./screenshots/desktop/crew-desktop.png)
+![](./screenshots/desktop/technology-desktop.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**_Tablet Layout_** (768 x 1024)\
+![](./screenshots/tablet/home-tablet.png)
+![](./screenshots/tablet/destination-tablet.png)
+![](./screenshots/tablet/crew-tablet.png)
+![](./screenshots/tablet/technology-tablet.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**_Mobile Layout_** (375 x 667) \
+![](./screenshots/mobile/home-mobile.png)
+![](./screenshots/mobile/destination-mobile.png)
+![](./screenshots/mobile/crew-mobile.png)
+![](./screenshots/mobile/technology-mobile.png)
 
-### `npm run eject`
+### Links
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Solution URL: [Github Respository](https://github.com/airoble-1/Developer-Showcase-Client)
+- Live Site URL: [Hosted on Netlify](https://dev-hunter.netlify.app/)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 3. My process
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Built with
+Front-End: 
+- CSS Modules, React, React-Bootstrap, React Router, Apollo Client with GraphQL
+Back-End: 
+- Strapi CMS.    
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### What I learned
 
-## Learn More
+- Responsive UI/UX development
+- Using the chrome inspector to emulate different screen sizes
+- Using CSS grid to create responsive and dynamic layouts
+- CSS media queries
+- Using javascript to allow single page functionality
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Continued development
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### Useful resources
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - This helped me by acting as a reference for the built in js API
+- [STRAPI](https://docs-v3.strapi.io/developer-docs/latest/getting-started/introduction.html) - Reference for quickly building API using Strapi Headless CMS
+- [REACT](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - This helped me by acting as a reference for the built in js API
+- [REACT ROUTER](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - This helped me by acting as a reference for the built in js API
+- [APOLLO CLIENT](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - This helped me by acting as a reference for the built in js API
+- [GRAPHQL](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - This helped me by acting as a reference for the built in js API
+- [React-Bootstrap](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles) - List of ARIA roles, states and properties
 
-### Analyzing the Bundle Size
+## Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Website - [Ahmed Roble](https://ahmedroble.netlify.app/)
+- Email - ahmed.roble@outlook.com
+- LinkedIn - [Ahmed Roble](https://www.linkedin.com/in/ahmedroble)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
