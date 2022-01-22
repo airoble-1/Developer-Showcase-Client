@@ -10,7 +10,6 @@
   - [Built with](#built-with)
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
-- [4. Author](#4-author-)
 
 ## 2. Overview
 
@@ -59,7 +58,3 @@ Back-End:
 - [GRAPHQL](https://graphql.org/)
 - [React-Bootstrap](https://react-bootstrap.github.io/)
 
-## Author
-
-- Website - [Ahmed Roble](https://ahmedroble.netlify.app/)
-- LinkedIn - [Ahmed Roble](https://www.linkedin.com/in/ahmedroble)
