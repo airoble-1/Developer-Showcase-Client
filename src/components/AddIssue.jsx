@@ -12,11 +12,47 @@ import { CREATE_ISSUE } from "../apollo/mutations/createIssue"
 import "react-datepicker/dist/react-datepicker.css"
 
 const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
+  const initialState = {
+    description: "",
+    project: "",
+    type: "",
+    priority: "",
+    severity: "",
+  }
   const [isUploading, setisUploading] = useState(false)
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const { userId } = user
-  const { handleChange, clearFields, values } = useForm()
+  const { handleChange, clearFields, values } = useForm(initialState)
+  const [errors, setErrors] = useState({
+    type: false,
+    priority: false,
+    severity: false,
+    description: false,
+    project: false,
+  })
+
+  const handleBlur = (event) => {
+    if (event.target.value) {
+      setErrors((errors) => ({ ...errors, [event.target.name]: false }))
+    } else {
+      setErrors((errors) => ({ ...errors, [event.target.name]: true }))
+    }
+    console.log(`${event.target.name}: ${event.target.value}`)
+  }
+
+  const setErrorMessages = () => {
+    let errorMessages = {}
+    if (!values.type) errorMessages.type = "Type is required"
+    if (!values.priority) errorMessages.priority = "Priority is required"
+    if (!values.severity) errorMessages.severity = "Severity is required"
+    if (!values.description)
+      errorMessages.description = "Description is required"
+    if (!values.project) errorMessages.project = "Project is required"
+    return errorMessages
+  }
+
+  let errorMessages = setErrorMessages()
 
   const { description, type, project, priority, severity } = values
   const [dueDate, setDueDate] = useState(new Date())
@@ -51,6 +87,14 @@ const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (
+      errors.type ||
+      errors.description ||
+      errors.project ||
+      errors.priority ||
+      errors.severity
+    )
+      return
     setisUploading(true)
     const createIssueResponse = await createIssueFnc({
       variables: {
@@ -69,8 +113,9 @@ const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
       },
       refetchQueries: [{ query, variables }],
     })
-    setShowAddIssueForm((prevState) => !prevState)
     setisUploading(false)
+    clearFields()
+    setShowAddIssueForm((prevState) => !prevState)
   }
   if (uploadingIssue) return <Spinner aniamtion="grow" />
   if (issueError) return `Error! Unable to create Issue`
@@ -87,7 +132,12 @@ const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
             placeholder="Enter brief description of issue"
             required
             maxLength={50}
+            isInvalid={errors.description}
+            onBlur={handleBlur}
           />
+          <Form.Control.Feedback type="invalid">
+            {errorMessages.description}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Row className="mb-3">
@@ -99,14 +149,19 @@ const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
                 value={values.type || ""}
                 onChange={handleChange}
                 required
+                onBlur={handleBlur}
+                isInvalid={errors.type}
               >
-                <option>Select Type</option>
+                <option value="">Select Type</option>
                 {types.map((type) => (
                   <option key={uuidv4()} value={type.value}>
                     {type.value}
                   </option>
                 ))}
               </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {errorMessages.type}
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col>
@@ -121,20 +176,29 @@ const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
           <Col>
             <Form.Group className="mb-3" controlId="project-name">
               <Form.Label className="fw-bold">Project</Form.Label>
-              <Form.Select
-                name="project"
-                value={projectId || values.project}
-                onChange={handleChange}
-                disabled={projectId}
-                required
-              >
-                <option>Select Project</option>
-                {data?.projects.map((project) => (
-                  <option key={uuidv4()} value={project.id}>
-                    {project.name}
-                  </option>
-                ))}
-              </Form.Select>
+              {loadingProjects ? (
+                <Spinner animation="grow" />
+              ) : (
+                <Form.Select
+                  name="project"
+                  value={projectId || values.project}
+                  onChange={handleChange}
+                  disabled={projectId}
+                  required
+                  onBlur={handleBlur}
+                  isInvalid={errors.project}
+                >
+                  <option value="">Select Project</option>
+                  {data?.projects.map((project) => (
+                    <option key={uuidv4()} value={project.id}>
+                      {project.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              )}
+              <Form.Control.Feedback type="invalid">
+                {errorMessages.project}
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
@@ -147,15 +211,19 @@ const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
                 value={values.priority || ""}
                 onChange={handleChange}
                 required
+                isInvalid={errors.priority}
+                onBlur={handleBlur}
               >
-                <option>Select Priority</option>
-                <option>Select Type</option>
+                <option value="">Select Priority</option>
                 {priorities.map((type) => (
                   <option key={uuidv4()} value={type.value}>
                     {type.value}
                   </option>
                 ))}
               </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {errorMessages.priority}
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col>
@@ -166,14 +234,19 @@ const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
                 value={values.severity || ""}
                 onChange={handleChange}
                 required
+                onBlur={handleBlur}
+                isInvalid={errors.severity}
               >
-                <option>Select Due Date</option>
+                <option value="">Select Serverity</option>
                 {severities.map((type) => (
                   <option key={uuidv4()} value={type.value}>
                     {type.value}
                   </option>
                 ))}
               </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {errorMessages.severity}
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
