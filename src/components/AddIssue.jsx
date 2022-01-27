@@ -11,7 +11,12 @@ import PROJECTS from "../apollo/queries/projects"
 import { CREATE_ISSUE } from "../apollo/mutations/createIssue"
 import "react-datepicker/dist/react-datepicker.css"
 
-const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
+const AddIssue = ({
+  setShowAddIssueForm = () => {},
+  projectId,
+  query,
+  variables,
+}) => {
   const initialState = {
     description: "",
     project: "",
@@ -38,7 +43,6 @@ const AddIssue = ({ setShowAddIssueForm, projectId, query, variables }) => {
     } else {
       setErrors((errors) => ({ ...errors, [event.target.name]: true }))
     }
-    console.log(`${event.target.name}: ${event.target.value}`)
   }
 
   const setErrorMessages = () => {

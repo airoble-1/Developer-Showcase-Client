@@ -36,7 +36,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/details/:projectId" element={<DetailsPage />} />
         <Route
-          path="/upload"
+          path="/upload/*"
           element={
             <PrivateRoute isAuth={user}>
               <UploadPage />

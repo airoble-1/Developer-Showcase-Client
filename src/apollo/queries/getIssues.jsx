@@ -2,7 +2,7 @@ import { gql } from "@apollo/client"
 
 export const GET_ISSUES = gql`
   query GET_ISSUES {
-    issues {
+    issues(sort: "id:DESC") {
       id
       description
       dueDate
