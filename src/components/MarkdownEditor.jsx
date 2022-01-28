@@ -4,7 +4,6 @@ export default function MarkdownEditor({ value, onChange }) {
   return (
     <div>
       <MDEditor value={value} onChange={onChange} />
-      <MDEditor.Markdown source={value} />
     </div>
   )
 }
