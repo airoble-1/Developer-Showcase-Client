@@ -1,7 +1,6 @@
 import { Container, Image, Button } from "react-bootstrap"
-import { AiFillLinkedin, AiFillGithub } from "react-icons/ai"
+import { AiFillLinkedin, AiFillGithub, AiFillFilePdf } from "react-icons/ai"
 import { CgWebsite } from "react-icons/cg"
-import { ImBlog } from "react-icons/im"
 import { useQuery } from "@apollo/client"
 import { useParams } from "react-router-dom"
 import classes from "./details.module.css"
@@ -22,7 +21,15 @@ const DetailsPage = () => {
     description,
     site,
     github,
-    developer: { firstName, lastName, profileImage, linkedIn, gitHub, website },
+    developer: {
+      firstName,
+      lastName,
+      profileImage,
+      linkedIn,
+      gitHub,
+      website,
+      resume,
+    },
   } = data.project
   return (
     <Container className="mb-5">
@@ -85,14 +92,14 @@ const DetailsPage = () => {
                 </a>
               )}
 
-              {site && (
+              {resume && (
                 <a
-                  href={site}
+                  href={resume}
                   target="_blank"
                   rel="noreferrer"
                   className="display-5 text-secondary"
                 >
-                  <ImBlog />
+                  <AiFillFilePdf />
                 </a>
               )}
             </div>
@@ -102,7 +109,7 @@ const DetailsPage = () => {
                   className="mt-2 w-100"
                   variant="primary"
                   size="lg"
-                  href={website}
+                  href={site}
                   target="_blank"
                   rel="noreferrer"
                 >
