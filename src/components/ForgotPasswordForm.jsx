@@ -1,10 +1,10 @@
-import { useState } from "react"
-import { Form, Button, Col, Row, Container, Spinner } from "react-bootstrap"
-import { useMutation } from "@apollo/client"
-import { FORGOT_PASSWORD_MUTATTION } from "../apollo/mutations/forgotPassword"
+import { useState } from "react";
+import { Form, Button, Col, Row, Container, Spinner } from "react-bootstrap";
+import { useMutation } from "@apollo/client";
+import { FORGOT_PASSWORD_MUTATTION } from "../apollo/mutations/forgotPassword";
 
 const ForgotPasswordForm = () => {
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
   const [forgotPasswordMutation, { data, loading, error }] = useMutation(
     FORGOT_PASSWORD_MUTATTION,
     {
@@ -12,26 +12,27 @@ const ForgotPasswordForm = () => {
         email,
       },
     }
-  )
+  );
   function validateEmail(email) {
     const re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return re.test(String(email).toLowerCase())
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   }
   function validateForm() {
-    return validateEmail(email)
+    return validateEmail(email);
   }
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!validateForm()) {
-      return
+      return;
     }
-    forgotPasswordMutation()
-    setEmail("")
-  }
-  if (error) return <h1>Oops something went wrong!</h1>
-  if (loading) return <Spinner animation="grow" />
-  if (data) return <h1>Link sent to your email</h1>
+    forgotPasswordMutation();
+    setEmail("");
+  };
+
+  if (error) return <h1>Oops something went wrong!</h1>;
+  if (loading) return <Spinner animation="grow" />;
+  if (data) return <h1>Link sent to your email</h1>;
   return (
     <Container>
       <Row className="d-flex justify-content-center">
@@ -68,7 +69,7 @@ const ForgotPasswordForm = () => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default ForgotPasswordForm
+export default ForgotPasswordForm;
