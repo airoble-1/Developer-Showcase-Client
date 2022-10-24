@@ -1,6 +1,6 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { createUploadLink } from "apollo-upload-client"
-import { setContext } from "@apollo/client/link/context"
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
+import { setContext } from "@apollo/client/link/context";
 
 const uploadLink = createUploadLink({
   /*
@@ -11,16 +11,16 @@ const uploadLink = createUploadLink({
 
   uri:
     process.env.NODE_ENV === "production"
-      ? "https://stormy-sands-93557.herokuapp.com/graphql"
+      ? "https://devhunter-api-production.up.railway.app/graphql"
       : `${process.env.REACT_APP_BACKEND_URL}`,
-})
+});
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const user = localStorage.getItem("user")
-  let token = null
+  const user = localStorage.getItem("user");
+  let token = null;
   if (user) {
-    token = JSON.parse(user).token
+    token = JSON.parse(user).token;
   }
   // return the headers to the context so httpLink can read them
   return {
@@ -28,12 +28,12 @@ const authLink = setContext((_, { headers }) => {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
     },
-  }
-})
+  };
+});
 
 const client = new ApolloClient({
   link: authLink.concat(uploadLink),
   cache: new InMemoryCache(),
-})
+});
 
-export default client
+export default client;
